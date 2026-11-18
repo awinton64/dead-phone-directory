@@ -465,12 +465,21 @@ export function initContacts(state: AppState, onSave: SaveCallback): void {
 
   if (!listContainer || !emergencyContainer) return;
 
-  // Ensure the add button container and form area exist (created dynamically if absent)
+  // Alpha index container (must exist before add area is placed)
+  let alphaEl = document.getElementById("contacts-alpha");
+  if (!alphaEl) {
+    alphaEl = document.createElement("div");
+    alphaEl.id = "contacts-alpha";
+    alphaEl.className = "alpha-index";
+    listContainer.before(alphaEl);
+  }
+
+  // Ensure the add button container sits above the alpha index
   let addArea = addBtnArea;
   if (!addArea) {
     addArea = document.createElement("div");
     addArea.id = "contacts-add-area";
-    listContainer.parentElement?.appendChild(addArea);
+    alphaEl.before(addArea);
   }
 
   let formAreaEl = formArea;
@@ -480,21 +489,12 @@ export function initContacts(state: AppState, onSave: SaveCallback): void {
     addArea.after(formAreaEl);
   }
 
-  // Alpha index container
-  let alphaEl = document.getElementById("contacts-alpha");
-  if (!alphaEl) {
-    alphaEl = document.createElement("div");
-    alphaEl.id = "contacts-alpha";
-    alphaEl.className = "alpha-index";
-    listContainer.before(alphaEl);
-  }
-
   // Count indicator
   let countEl = document.getElementById("contacts-count");
   if (!countEl) {
     countEl = document.createElement("p");
     countEl.id = "contacts-count";
-    alphaEl.before(countEl);
+    addArea.before(countEl);
   }
 
   function rerender(): void {

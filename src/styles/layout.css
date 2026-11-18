@@ -16,9 +16,10 @@ header {
   border-bottom: 2px solid var(--color-border);
   padding: var(--space-3) var(--space-4);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
+  gap: var(--space-2) var(--space-3);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -27,7 +28,17 @@ header {
 
 header h1 {
   font-size: var(--text-xl);
+  /* Allow the title to shrink on very narrow screens rather than overflow */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 1 1 auto;
+}
+
+/* Theme button never grows; wraps below the title if space is too tight */
+#theme-toggle {
+  flex: 0 0 auto;
 }
 
 /* ---- Navigation ---- */
