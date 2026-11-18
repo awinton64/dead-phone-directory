@@ -1,27 +1,27 @@
 # Tasks: Dead Phone Directory
 
 ## T1 — Project scaffold
-- [ ] Initialise `package.json` with scripts: `dev`, `build`, `preview`, `test`, `lint`.
-- [ ] Add `vite`, `typescript`, `vitest`, `fast-check`, `eslint`, `typescript-eslint` as dev dependencies.
-- [ ] Create `tsconfig.json` (strict mode, `moduleResolution: bundler`).
-- [ ] Create `vite.config.ts` with `base: "/dead-phone-directory/"`.
-- [ ] Create `vitest.config.ts` (environment: `node` for `src/lib/`, no jsdom).
-- [ ] Create `eslint.config.js` (not `.ts`) with typescript-eslint and `no-restricted-globals` rule banning `window`/`document`/`localStorage` inside `src/lib/`. Using `.js` avoids the need for an extra loader.
-- [ ] Add `index.html` at the **repo root** (Vite's default root); include semantic landmarks: `<header>`, `<nav>`, four `<section>` elements, `<footer>`.
-- [ ] Add `public/manifest.json` (name, short name, display: standalone).
-- [ ] Add `.github/workflows/deploy.yml` (build on push to `main`, deploy `dist/` to GitHub Pages).
+- [x] Initialise `package.json` with scripts: `dev`, `build`, `preview`, `test`, `lint`.
+- [x] Add `vite`, `typescript`, `vitest`, `fast-check`, `eslint`, `typescript-eslint` as dev dependencies.
+- [x] Create `tsconfig.json` (strict mode, `moduleResolution: bundler`).
+- [x] Create `vite.config.ts` with `base: "/dead-phone-directory/"`.
+- [x] Create `vitest.config.ts` (environment: `node` for `src/lib/`, no jsdom).
+- [x] Create `eslint.config.js` (not `.ts`) with typescript-eslint and `no-restricted-globals` rule banning `window`/`document`/`localStorage` inside `src/lib/`. Using `.js` avoids the need for an extra loader.
+- [x] Add `index.html` at the **repo root** (Vite's default root); include semantic landmarks: `<header>`, `<nav>`, four `<section>` elements, `<footer>`.
+- [x] Add `public/manifest.json` (name, short name, display: standalone).
+- [x] Add `.github/workflows/deploy.yml` (build on push to `main`, deploy `dist/` to GitHub Pages).
 - **Refs:** R8 (AC 31–32)
 
 ## T2 — `src/lib/phone.ts` + tests
-- [ ] Implement `isServiceNumber`, `normalise`, `format`, `PhoneError`.
-- [ ] Unit tests: valid 10-digit inputs in multiple formats, 11-digit with leading 1, service numbers, rejection cases.
-- [ ] Property tests (fast-check): P1 round-trip idempotence, P2 no long digit runs in `format` output, P3 raw 10-digit passthrough, P4 `isServiceNumber` regex equivalence.
+- [x] Implement `isServiceNumber`, `normalise`, `format`, `PhoneError`.
+- [x] Unit tests: valid 10-digit inputs in multiple formats, 11-digit with leading 1, service numbers, rejection cases.
+- [x] Property tests (fast-check): P1 round-trip idempotence, P2 no long digit runs in `format` output, P3 raw 10-digit passthrough, P4 `isServiceNumber` regex equivalence.
 - **Refs:** R3 (AC 9–12)
 
 ## T3 — `src/lib/scheduler.ts` + tests
-- [ ] Implement `intervalDays`, `recordCorrect`, `recordIncorrect`, `isDue`.
-- [ ] Unit tests: each box transition, max-box cap, incorrect resets to box 1, `isDue` boundary dates.
-- [ ] Property tests (fast-check): P5–P8.
+- [x] Implement `intervalDays`, `recordCorrect`, `recordIncorrect`, `isDue`.
+- [x] Unit tests: each box transition, max-box cap, incorrect resets to box 1, `isDue` boundary dates.
+- [x] Property tests (fast-check): P5–P8.
 - **Refs:** R6 (AC 23–26)
 
 ## T4 — `src/lib/streak.ts` + tests

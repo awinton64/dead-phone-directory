@@ -1,0 +1,11 @@
+{
+  "name": "Dead Phone Directory",
+  "short_name": "PhoneDir",
+  "description": "Your household phone book for emergencies — works offline.",
+  "display": "standalone",
+  "start_url": "/dead-phone-directory/",
+  "scope": "/dead-phone-directory/",
+  "background_color": "#f5f0e8",
+  "theme_color": "#3d2b1f",
+  "icons": []
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Dead Phone Directory — your household phone book for when the phones are dead." />
+    <link rel="manifest" href="./manifest.json" />
+    <title>Dead Phone Directory</title>
+  </head>
+  <body>
+    <header>
+      <h1>☎ Dead Phone Directory</h1>
+      <button id="theme-toggle" type="button" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <nav aria-label="Main navigation">
+      <ul role="list">
+        <li><a href="#section-directory" aria-current="page">Directory</a></li>
+        <li><a href="#section-drill">Drill</a></li>
+        <li><a href="#section-plan">Plan</a></li>
+        <li><a href="#section-print">Print</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section id="section-directory" aria-labelledby="heading-directory">
+        <h2 id="heading-directory">Directory</h2>
+        <div id="contacts-list" role="list"></div>
+        <div id="emergency-list"></div>
+      </section>
+
+      <section id="section-drill" aria-labelledby="heading-drill" hidden>
+        <h2 id="heading-drill">Dead Phone Drill</h2>
+        <div id="streak-display" aria-live="polite"></div>
+        <div id="drill-session"></div>
+      </section>
+
+      <section id="section-plan" aria-labelledby="heading-plan" hidden>
+        <h2 id="heading-plan">Household Plan</h2>
+        <form id="plan-form" novalidate></form>
+      </section>
+
+      <section id="section-print" aria-labelledby="heading-print" hidden>
+        <h2 id="heading-print">Print</h2>
+        <div id="print-actions"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>All data stored locally on your device. No network required.</p>
+    </footer>
+
+    <!-- Print-only layouts (hidden on screen) -->
+    <div class="print-wallet" aria-hidden="true"></div>
+    <div class="print-fridge" aria-hidden="true"></div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
