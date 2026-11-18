@@ -1,0 +1,263 @@
+/* ============================================================
+   DIRECTORY — Paper phone-directory visual style
+   ============================================================ */
+
+/* ---- Section toolbar ---- */
+
+.directory-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
+/* ---- Alphabet index tabs ---- */
+
+.alpha-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+
+.alpha-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0 var(--space-1);
+  font-family: var(--font-serif);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink-muted);
+  background-color: var(--color-paper-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  border-bottom: none;
+  cursor: default;
+  user-select: none;
+}
+
+.alpha-tab[data-active="true"] {
+  color: var(--color-accent);
+  background-color: var(--color-paper);
+  border-color: var(--color-accent);
+}
+
+/* ---- Letter group heading ---- */
+
+.contact-group {
+  margin-bottom: var(--space-6);
+}
+
+.contact-group-letter {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-accent);
+  padding: var(--space-1) 0;
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--color-accent);
+  /* Spooky: subtle ember glow on the letter heading */
+  text-shadow: 0 0 8px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-group-letter {
+    text-shadow: none;
+  }
+}
+
+/* ---- Contact rows — ruled-line paper ---- */
+
+.contact-list {
+  /* Ruled lines via repeating gradient */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent calc(var(--rule-height, 52px) - 1px),
+    var(--color-rule) calc(var(--rule-height, 52px) - 1px),
+    var(--color-rule) var(--rule-height, 52px)
+  );
+  background-attachment: local;
+}
+
+.contact-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2) var(--space-4);
+  align-items: center;
+  padding: var(--space-3) var(--space-2);
+  min-height: 52px; /* matches --rule-height */
+  border-bottom: 1px solid var(--color-rule);
+  background-color: transparent;
+  transition: background-color var(--transition);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-row {
+    transition: none;
+  }
+}
+
+.contact-row:hover {
+  background-color: var(--color-accent-bg);
+}
+
+.contact-row:last-child {
+  border-bottom: none;
+}
+
+.contact-info {
+  min-width: 0;
+}
+
+.contact-name {
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-relation {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.contact-phone {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.contact-actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ---- Must-memorize badge ---- */
+
+.badge-memorize {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-memorize);
+  background-color: var(--color-memorize-bg);
+  border: 1px solid var(--color-memorize);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+/* ---- Emergency contacts block ---- */
+
+.emergency-section {
+  margin-top: var(--space-8);
+}
+
+.emergency-section h3 {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  color: var(--color-emergency);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-1);
+  border-bottom: 2px solid var(--color-emergency);
+}
+
+.emergency-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2) var(--space-4);
+  align-items: center;
+  padding: var(--space-3) var(--space-2);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.emergency-row:last-child {
+  border-bottom: none;
+}
+
+.emergency-name {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-emergency);
+}
+
+.emergency-phone {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--color-emergency);
+  font-weight: 700;
+}
+
+/* ---- Add / edit contact form ---- */
+
+.contact-form-wrapper {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-top: var(--space-6);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.contact-form-wrapper h3 {
+  margin-bottom: var(--space-4);
+  color: var(--color-ink);
+}
+
+/* Checkbox row */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--color-accent);
+}
+
+.checkbox-row label {
+  margin-bottom: 0;
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* ---- Contact count indicator ---- */
+
+.contact-count {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.contact-count-max {
+  color: var(--color-emergency);
+  font-weight: 700;
+}
+
+/* ---- Empty state ---- */
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-10) var(--space-4);
+  color: var(--color-ink-muted);
+  font-style: italic;
+}

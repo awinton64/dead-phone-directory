@@ -25,8 +25,17 @@
     <main>
       <section id="section-directory" aria-labelledby="heading-directory">
         <h2 id="heading-directory">Directory</h2>
-        <div id="contacts-list" role="list"></div>
+        <div class="directory-toolbar">
+          <span id="contacts-count" class="contact-count"></span>
+          <button id="btn-load-demo" type="button" class="btn btn-secondary btn-sm">
+            Load demo data
+          </button>
+        </div>
+        <div id="contacts-alpha" class="alpha-index" aria-label="Alphabetical index"></div>
+        <div id="contacts-list"></div>
         <div id="emergency-list"></div>
+        <div id="contacts-add-area"></div>
+        <div id="contacts-form-area"></div>
       </section>
 
       <section id="section-drill" aria-labelledby="heading-drill" hidden>

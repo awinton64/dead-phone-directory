@@ -42,27 +42,27 @@
 - **Refs:** R7 (AC 27–30), R2 (AC 6)
 
 ## T6 — Base styles and theming
-- [ ] `src/styles/base.css`: CSS reset, custom properties for light palette (paper-white, ink-black, ruled-line grey, accent sepia), serif heading font stack (system serif).
-- [ ] Add `[data-theme="dark"]` overrides and `@media (prefers-color-scheme: dark)` block.
-- [ ] `src/styles/layout.css`: phone-first single-column grid, breakpoint at 640 px for two-column.
-- [ ] `src/styles/directory.css`: ruled-line rows (`repeating-linear-gradient`), alphabet tab sidebar, spooky accent (subtle ghost-grey glow on headings, `prefers-reduced-motion` guard).
-- [ ] `src/styles/drill.css`: drill card, input field, `aria-live` feedback region, reduced-motion guard.
-- [ ] `src/ui/theme.ts`: read saved theme from storage, apply `data-theme`, wire toggle button, listen to `prefers-color-scheme` change.
+- [x] `src/styles/base.css`: CSS reset, custom properties for light palette (paper-white, ink-black, ruled-line grey, accent sepia), serif heading font stack (system serif).
+- [x] Add `[data-theme="dark"]` overrides and `@media (prefers-color-scheme: dark)` block.
+- [x] `src/styles/layout.css`: phone-first single-column grid, breakpoint at 640 px for two-column.
+- [x] `src/styles/directory.css`: ruled-line rows (`repeating-linear-gradient`), alphabet tab sidebar, spooky accent (subtle ghost-grey glow on headings, `prefers-reduced-motion` guard).
+- [x] `src/styles/drill.css`: drill card, input field, `aria-live` feedback region, reduced-motion guard.
+- [x] `src/ui/theme.ts`: read saved theme from storage, apply `data-theme`, wire toggle button, listen to `prefers-color-scheme` change.
 - **Refs:** R9 (AC 33, 35–37)
 
 ## T7 — Contact list UI (`src/ui/contacts.ts`)
-- [ ] Render contact rows (name, relation, formatted phone, memorize badge) using `phone.format`.
-- [ ] Render emergency contacts section from `EMERGENCY_CONTACTS` (not editable).
-- [ ] Add-contact form: fields for name, relation, phone, mustMemorize checkbox; inline validation using `phone.normalise`; disable form at 10 contacts.
-- [ ] Edit contact: inline or modal form pre-filled from existing contact.
-- [ ] Delete contact: confirmation step, then remove from state.
-- [ ] All inputs have `<label>`, logical tab order; phone validation error shown in `role="alert"`.
+- [x] Render contact rows (name, relation, formatted phone, memorize badge) using `phone.format`.
+- [x] Render emergency contacts section from `EMERGENCY_CONTACTS` (not editable).
+- [x] Add-contact form: fields for name, relation, phone, mustMemorize checkbox; inline validation using `phone.normalise`; disable form at 10 contacts.
+- [x] Edit contact: inline or modal form pre-filled from existing contact.
+- [x] Delete contact: confirmation step, then remove from state.
+- [x] All inputs have `<label>`, logical tab order; phone validation error shown in `role="alert"`.
 - **Refs:** R1 (AC 1–5), R2 (AC 6), R3 (AC 9–12)
 
 ## T8 — Household plan UI (`src/ui/plan.ts`)
-- [ ] Render meeting-place and fallback fields; save to storage on submit.
-- [ ] Restore saved values on mount.
-- [ ] Labels and focus order meet WCAG 2.2 AA.
+- [x] Render meeting-place and fallback fields; save to storage on submit.
+- [x] Restore saved values on mount.
+- [x] Labels and focus order meet WCAG 2.2 AA.
 - **Refs:** R2 (AC 7–8)
 
 ## T9 — Dead Phone Drill UI (`src/ui/drill.ts`)

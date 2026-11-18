@@ -1,0 +1,182 @@
+/* ============================================================
+   PRINT — Wallet card and fridge sheet layouts
+   ============================================================ */
+
+/* Hide print-only containers on screen */
+.print-wallet,
+.print-fridge {
+  display: none;
+}
+
+@media print {
+  /* Hide everything except print layouts */
+  body > header,
+  body > nav,
+  body > main,
+  body > footer {
+    display: none !important;
+  }
+
+  .print-wallet,
+  .print-fridge {
+    display: block;
+  }
+
+  /* ---- Wallet card ---- */
+
+  .print-wallet {
+    /* Two wallet faces become two pages */
+  }
+
+  @page wallet {
+    size: 3.375in 2.125in;
+    margin: 0.1in;
+  }
+
+  .wallet-face {
+    page: wallet;
+    width: 3.375in;
+    height: 2.125in;
+    box-sizing: border-box;
+    padding: 0.1in;
+    font-family: Georgia, serif;
+    font-size: 7pt;
+    color: #000;
+    background: #fff;
+    page-break-after: always;
+  }
+
+  .wallet-face:last-child {
+    page-break-after: avoid;
+  }
+
+  .wallet-face h2 {
+    font-size: 8pt;
+    font-weight: bold;
+    margin-bottom: 3pt;
+    border-bottom: 0.5pt solid #000;
+    padding-bottom: 2pt;
+  }
+
+  .wallet-contact-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 4pt;
+    padding: 1pt 0;
+    border-bottom: 0.25pt solid #ccc;
+    font-size: 6.5pt;
+  }
+
+  .wallet-contact-name {
+    font-weight: bold;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .wallet-contact-phone {
+    font-family: "Courier New", monospace;
+    white-space: nowrap;
+  }
+
+  .wallet-plan {
+    margin-top: 4pt;
+    font-size: 6pt;
+  }
+
+  .wallet-plan dt {
+    font-weight: bold;
+    margin-top: 2pt;
+  }
+
+  .wallet-plan dd {
+    margin-left: 4pt;
+  }
+
+  /* ---- Fridge sheet ---- */
+
+  @page fridge {
+    size: letter;
+    margin: 0.5in;
+  }
+
+  .print-fridge {
+    page: fridge;
+    font-family: Georgia, serif;
+    font-size: 10pt;
+    color: #000;
+    background: #fff;
+  }
+
+  .fridge-title {
+    font-size: 18pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8pt;
+    border-bottom: 1pt solid #000;
+    padding-bottom: 4pt;
+  }
+
+  .fridge-section-heading {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 10pt 0 4pt;
+    border-bottom: 0.5pt solid #666;
+    padding-bottom: 2pt;
+  }
+
+  .fridge-contact-row {
+    display: flex;
+    gap: 8pt;
+    padding: 2pt 0;
+    border-bottom: 0.25pt solid #ccc;
+    align-items: baseline;
+  }
+
+  .fridge-contact-name {
+    font-weight: bold;
+    flex: 2;
+  }
+
+  .fridge-contact-relation {
+    color: #555;
+    flex: 1;
+    font-size: 9pt;
+  }
+
+  .fridge-contact-phone {
+    font-family: "Courier New", monospace;
+    flex: 1.5;
+    text-align: right;
+  }
+
+  .fridge-memorize-mark {
+    font-size: 8pt;
+    color: #000;
+    font-weight: bold;
+    min-width: 10pt;
+  }
+
+  .fridge-plan {
+    margin-top: 4pt;
+  }
+
+  .fridge-plan dt {
+    font-weight: bold;
+    margin-top: 4pt;
+  }
+
+  .fridge-plan dd {
+    margin-left: 8pt;
+  }
+
+  .fridge-footer {
+    margin-top: 16pt;
+    font-size: 8pt;
+    color: #666;
+    text-align: center;
+    border-top: 0.5pt solid #ccc;
+    padding-top: 4pt;
+  }
+}
