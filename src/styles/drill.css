@@ -2,6 +2,20 @@
    DRILL — Dead Phone Drill session styles
    ============================================================ */
 
+/* ---- Streak candles ---- */
+
+.streak-candles {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.streak-candle {
+  font-size: var(--text-lg);
+  line-height: 1;
+}
+
 /* ---- Streak display ---- */
 
 .streak-bar {

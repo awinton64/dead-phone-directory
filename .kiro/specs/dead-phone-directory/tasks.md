@@ -66,24 +66,24 @@
 - **Refs:** R2 (AC 7–8)
 
 ## T9 — Dead Phone Drill UI (`src/ui/drill.ts`)
-- [ ] On session start, collect contacts where `mustMemorize && isDue(nextDue, today)`; show "nothing due" message if empty. Cap the session at **5 cards** — if more than 5 contacts are due, pick the 5 with the earliest `nextDue` (ties broken by contact `id`).
-- [ ] Present one card at a time: show name and relation, ask for digits via `<input type="tel">`.
-- [ ] On submit, normalise both the user's input and the stored phone via `normalise()` before comparing, so formatting differences (e.g. "555-0123" vs "5550123") never count as wrong.
-- [ ] Call `recordCorrect` or `recordIncorrect` on the result; update storage.
-- [ ] Announce result in `aria-live="polite"` region; reveal correct number on incorrect.
-- [ ] After all cards answered, append entry to `drillLog`, re-render streak.
-- [ ] Entire flow operable by keyboard only (Enter to submit, focus managed between cards).
+- [x] On session start, collect contacts where `mustMemorize && isDue(nextDue, today)`; show "nothing due" message if empty. Cap the session at **5 cards** — if more than 5 contacts are due, pick the 5 with the earliest `nextDue` (ties broken by contact `id`).
+- [x] Present one card at a time: show name and relation, ask for digits via `<input type="tel">`.
+- [x] On submit, normalise both the user's input and the stored phone via `normalise()` before comparing, so formatting differences (e.g. "555-0123" vs "5550123") never count as wrong.
+- [x] Call `recordCorrect` or `recordIncorrect` on the result; update storage.
+- [x] Announce result in `aria-live="polite"` region; reveal correct number on incorrect.
+- [x] After all cards answered, append entry to `drillLog`, re-render streak.
+- [x] Entire flow operable by keyboard only (Enter to submit, focus managed between cards).
 - **Refs:** R5 (AC 15–20), R6 (AC 23–26)
 
 ## T10 — Streak display
-- [ ] After each completed drill session and on page load, call `computeStreak` with `drillLog` dates and today.
-- [ ] Render current streak and longest streak in the drill section header.
+- [x] After each completed drill session and on page load, call `computeStreak` with `drillLog` dates and today.
+- [x] Render current streak and longest streak in the drill section header.
 - **Refs:** R5 (AC 21–22)
 
 ## T11 — Demo data and import/export (`src/ui/demo.ts`)
-- [ ] "Load demo data" button: call `demoState()`, save to storage, re-render contacts and plan, show notice banner that data is fictional.
-- [ ] "Export" button: call `exportState`, create a `Blob`, trigger download as `dead-phone-directory.json`.
-- [ ] "Import" file input: read selected file, call `importState`, save to storage on success, re-render; show accessible error on failure.
+- [x] "Load demo data" button: call `demoState()`, save to storage, re-render contacts and plan, show notice banner that data is fictional.
+- [x] "Export" button: call `exportState`, create a `Blob`, trigger download as `dead-phone-directory.json`.
+- [x] "Import" file input: read selected file, call `importState`, save to storage on success, re-render; show accessible error on failure.
 - **Refs:** R7 (AC 27–30)
 
 ## T12 — Print layouts (`src/styles/print.css` + `src/ui/print.ts`)

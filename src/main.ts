@@ -4,11 +4,13 @@ import "./styles/directory.css";
 import "./styles/drill.css";
 import "./styles/print.css";
 
-import { loadState, saveState, demoState } from "./lib/storage.ts";
+import { loadState, saveState } from "./lib/storage.ts";
 import type { AppState } from "./lib/storage.ts";
 import { initTheme } from "./ui/theme.ts";
 import { initContacts } from "./ui/contacts.ts";
 import { initPlan } from "./ui/plan.ts";
+import { initDrill, renderStreak } from "./ui/drill.ts";
+import { initDemo } from "./ui/demo.ts";
 
 // ---------------------------------------------------------------------------
 // State
@@ -40,6 +42,11 @@ function showSection(id: SectionId): void {
       btn.setAttribute("aria-current", name === id ? "true" : "false");
     }
   }
+
+  // Re-render streak when navigating to drill (picks up any contacts added)
+  if (id === "drill") {
+    renderStreak(state);
+  }
 }
 
 function initNav(): void {
@@ -49,8 +56,6 @@ function initNav(): void {
   const list = nav.querySelector("ul");
   if (!list) return;
 
-  // Replace the static <a> links produced in index.html with <button> elements
-  // so we don't change the URL and can manage aria-current properly.
   list.innerHTML = "";
 
   const labels: Record<SectionId, string> = {
@@ -74,26 +79,6 @@ function initNav(): void {
 }
 
 // ---------------------------------------------------------------------------
-// Demo data button
-// ---------------------------------------------------------------------------
-
-function initDemoButton(): void {
-  const btn = document.getElementById("btn-load-demo");
-  if (!btn) return;
-  btn.addEventListener("click", () => {
-    const confirmed = window.confirm(
-      "Replace all contacts and plan with fictional demo data? Your current data will be lost.",
-    );
-    if (!confirmed) return;
-    state = demoState();
-    save(state);
-    // Re-initialise contact and plan views with new state
-    initContacts(state, save);
-    initPlan(state, save);
-  });
-}
-
-// ---------------------------------------------------------------------------
 // Boot
 // ---------------------------------------------------------------------------
 
@@ -101,7 +86,6 @@ function boot(): void {
   initNav();
   showSection("directory");
 
-  // Theme — save callback persists theme choice into state
   initTheme(state, (pref) => {
     state.theme = pref;
     save(state);
@@ -109,7 +93,22 @@ function boot(): void {
 
   initContacts(state, save);
   initPlan(state, save);
-  initDemoButton();
+
+  initDrill(state, (next) => {
+    save(next);
+  });
+
+  // Demo, export, import — pass a getter so it always reads current state
+  initDemo(
+    () => state,
+    (next) => {
+      save(next);
+      // Re-initialise all views with the new state
+      initContacts(next, save);
+      initPlan(next, save);
+      initDrill(next, (s) => save(s));
+    },
+  );
 }
 
 if (document.readyState === "loading") {

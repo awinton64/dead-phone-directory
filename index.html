@@ -27,10 +27,25 @@
         <h2 id="heading-directory">Directory</h2>
         <div class="directory-toolbar">
           <span id="contacts-count" class="contact-count"></span>
-          <button id="btn-load-demo" type="button" class="btn btn-secondary btn-sm">
-            Load demo data
-          </button>
+          <div class="toolbar-actions">
+            <button id="btn-load-demo" type="button" class="btn btn-secondary btn-sm">
+              Load demo data
+            </button>
+            <button id="btn-export" type="button" class="btn btn-secondary btn-sm">
+              Export
+            </button>
+            <label class="btn btn-secondary btn-sm import-label" for="import-file">
+              Import
+              <input
+                type="file"
+                id="import-file"
+                accept=".json,application/json"
+                class="sr-only"
+              />
+            </label>
+          </div>
         </div>
+        <div id="import-error" class="field-error" role="alert" aria-live="assertive"></div>
         <div id="contacts-alpha" class="alpha-index" aria-label="Alphabetical index"></div>
         <div id="contacts-list"></div>
         <div id="emergency-list"></div>

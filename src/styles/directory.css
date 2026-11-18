@@ -13,6 +13,20 @@
   margin-bottom: var(--space-5);
 }
 
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* Import label styled as a button — the real <input> is .sr-only inside it */
+.import-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
 /* ---- Alphabet index tabs ---- */
 
 .alpha-index {
@@ -74,15 +88,10 @@
 /* ---- Contact rows — ruled-line paper ---- */
 
 .contact-list {
-  /* Ruled lines via repeating gradient */
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent calc(var(--rule-height, 52px) - 1px),
-    var(--color-rule) calc(var(--rule-height, 52px) - 1px),
-    var(--color-rule) var(--rule-height, 52px)
-  );
-  background-attachment: local;
+  /* Ruled lines are provided by border-bottom on each .contact-row,
+     so no background gradient is needed here. A gradient anchored to
+     the container would cross text at arbitrary heights and look
+     struck-through. */
 }
 
 .contact-row {
