@@ -1,6 +1,8 @@
 # Dead Phone Directory
 
-A Kiroween 2026 Resurrection entry. Live: https://awinton64.github.io/dead-phone-directory/ It resurrects the paper home phone book so the numbers that matter are not trapped in a phone that is dead, lost, or stolen. Households build a short contact list, print a wallet card and fridge sheet, and run daily drills to actually memorize the numbers that count.
+A Kiroween 2026 Resurrection entry. It resurrects the paper home phone book so the numbers that matter are not trapped in a phone that is dead, lost, or stolen. Households build a short contact list, print a wallet card and fridge sheet, and run daily drills to actually memorize the numbers that count.
+
+**Live app:** https://awinton64.github.io/dead-phone-directory/
 
 ## Features
 
