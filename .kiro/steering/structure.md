@@ -13,7 +13,8 @@ dead-phone-directory/
 │           ├── design.md
 │           └── tasks.md
 ├── public/
-│   └── manifest.json          # Web app manifest (offline-capable PWA shell)
+│   ├── manifest.json          # Web app manifest (offline-capable PWA shell)
+│   └── sw.js                  # Service worker (plain JS, copied verbatim by Vite)
 ├── src/
 │   ├── lib/                   # Pure logic — no DOM, no browser globals
 │   │   ├── phone.ts           # US number normalisation and formatting
@@ -37,9 +38,9 @@ dead-phone-directory/
 │   │   ├── directory.css      # Paper directory visual style (ruled lines, tabs)
 │   │   ├── drill.css          # Drill session styles, aria-live regions
 │   │   └── print.css          # @media print — wallet card and fridge sheet
-│   ├── main.ts                # App entry point: boot, router, top-level event wiring
-│   └── index.html             # Single HTML file; Vite entry
-├── eslint.config.ts
+│   └── main.ts                # App entry point: boot, router, top-level event wiring
+├── index.html                 # Vite entry — at repo root (Vite default)
+├── eslint.config.js           # Flat ESLint config (plain JS, no extra loader needed)
 ├── tsconfig.json
 ├── vite.config.ts
 ├── vitest.config.ts
@@ -57,3 +58,4 @@ dead-phone-directory/
 - **Print CSS**: wallet card and fridge sheet layouts live entirely in `src/styles/print.css` using `@media print` and `@page` rules. No JavaScript is involved in rendering the printed output.
 - **No build-time code generation**: demo data is a plain TypeScript constant, not generated from a script.
 - **Test files** sit next to their source (`*.test.ts`) inside `src/lib/`. UI modules are not unit-tested (manual + accessibility testing instead).
+- **Service worker**: `public/sw.js` is plain JavaScript (not TypeScript). Vite copies it verbatim to `dist/`. Registered from `main.ts` with a relative URL (`./sw.js`) so it resolves correctly under the `/dead-phone-directory/` base path.

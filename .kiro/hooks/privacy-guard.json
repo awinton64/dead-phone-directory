@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "privacy-guard",
+      "trigger": "PostFileSave",
+      "description": "When a file under src/ or public/ is saved, check it for any network access and report or remove it, because nothing must leave the device.",
+      "matcher": "(^|/)src/|(^|/)public/",
+      "action": {
+        "type": "agent",
+        "prompt": "A file was just saved. Read that file and check it for any network access: fetch(), XMLHttpRequest, WebSocket, navigator.sendBeacon, any external http(s) URL in <link> or <script> src/href attributes, or any analytics or telemetry SDK. This product's core promise is that nothing leaves the device — all data stays in localStorage only. If you find any such access, report exactly what you found (file path, line number, offending code) and remove or replace it with a comment explaining why it was removed. If the file is clean, do nothing and say nothing."
+      }
+    }
+  ]
+}

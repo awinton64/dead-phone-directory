@@ -44,9 +44,9 @@
 
 **US-7.** As a user, I want a daily drill that asks me to type phone numbers from memory so that I actually memorize them.
 
-15. WHEN a user starts a drill session THEN the system SHALL present each contact flagged "must memorize" whose next-due date is today or earlier, one at a time.
+15. WHEN a user starts a drill session THEN the system SHALL present each contact flagged "must memorize" whose next-due date is today or earlier, one at a time, up to a maximum of 5 cards per session (earliest `nextDue` first).
 16. WHEN no flagged contacts are due THEN the system SHALL display a "Nothing due today — come back tomorrow" message and not start a drill.
-17. WHEN a user types the correct digits for a number THEN the system SHALL advance that contact to the next Leitner box and show a confirmation via an `aria-live` region.
+17. WHEN a user types digits for a number THEN the system SHALL normalise both the input and the stored number via `normalise()` before comparing; a match on normalised digits is correct regardless of formatting. On a correct answer the system SHALL advance that contact to the next Leitner box and show a confirmation via an `aria-live` region.
 18. WHEN a user types incorrect digits THEN the system SHALL move that contact back to box 1, reveal the correct number, and show feedback via an `aria-live` region.
 19. WHEN a drill session ends (all due cards answered) THEN the system SHALL record today's ISO date in the drill log and update the streak display.
 20. WHEN a user is drilling THEN the system SHALL allow completing the entire session using keyboard only (no mouse required).

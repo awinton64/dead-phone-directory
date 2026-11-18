@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "lint-on-save",
+      "trigger": "PostFileSave",
+      "description": "When any .ts file under src/ is saved, run ESLint.",
+      "matcher": "src/.*\\.ts$",
+      "action": {
+        "type": "command",
+        "command": "npm run lint",
+        "timeout": 30
+      }
+    }
+  ]
+}

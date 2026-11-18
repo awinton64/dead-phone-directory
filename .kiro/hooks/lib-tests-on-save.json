@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "lib-tests-on-save",
+      "trigger": "PostFileSave",
+      "description": "When a file under src/lib/ is saved, run the full test suite (non-watch).",
+      "matcher": "src/lib/",
+      "action": {
+        "type": "command",
+        "command": "npm test -- --run",
+        "timeout": 60
+      }
+    }
+  ]
+}

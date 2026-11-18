@@ -17,9 +17,10 @@
 
 ## Linting
 
-- **ESLint** with flat config (`eslint.config.ts`).
+- **ESLint** with flat config (`eslint.config.js`).
 - **typescript-eslint** for TypeScript rules.
 - No Prettier (formatting is not enforced by CI, but code should be consistent).
+- `eslint.config.js` uses plain JavaScript (not `.ts`) to avoid requiring a loader.
 
 ## Module architecture rule
 

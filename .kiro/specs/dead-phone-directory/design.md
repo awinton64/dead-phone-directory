@@ -76,7 +76,7 @@ const EMERGENCY_CONTACTS = [
 ### `src/lib/phone.ts`
 
 ```typescript
-/** Returns true for 3-digit NANP service numbers (911, 988, 211, 311, 411, 511, 711, 811). */
+/** Returns true for N11 codes (/^[2-9]11$/) and for "988". */
 export function isServiceNumber(raw: string): boolean;
 
 /** Strips formatting characters and returns digits only, or throws PhoneError. */
@@ -158,6 +158,11 @@ export function demoState(): AppState;
 
 ---
 
+## Drill session rules
+
+- **Answer comparison**: both the user's typed input and the stored phone are passed through `normalise()` before comparison. A match on digits is correct regardless of how the user formatted the entry.
+- **Session cap**: a drill session shows at most 5 cards. When more than 5 contacts are due, the session takes the 5 with the earliest `nextDue` (ties broken by `id` lexicographic order).
+
 ## UI sections
 
 | Section | Element id | Visible when |
@@ -188,7 +193,7 @@ Both classes are set to `display: none` in screen CSS and `display: block` in `@
 - **P1** `normalise(format(normalise(x))) === normalise(x)` for any valid input (idempotence of round-trip).
 - **P2** `format` output never contains raw digit runs longer than 4 characters (always grouped).
 - **P3** For any string of 10 ASCII digits `d`, `normalise(d) === d`.
-- **P4** `isServiceNumber` returns true iff the string matches `/^[2-9]11$/`.
+- **P4** `isServiceNumber` returns true iff the string matches `/^[2-9]11$/` or equals `"988"` exactly.
 
 ### `scheduler.ts`
 - **P5** `intervalDays(box)` equals `2 ** (box - 1)` for all boxes 1–5.

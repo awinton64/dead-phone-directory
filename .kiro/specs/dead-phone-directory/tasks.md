@@ -6,8 +6,8 @@
 - [ ] Create `tsconfig.json` (strict mode, `moduleResolution: bundler`).
 - [ ] Create `vite.config.ts` with `base: "/dead-phone-directory/"`.
 - [ ] Create `vitest.config.ts` (environment: `node` for `src/lib/`, no jsdom).
-- [ ] Create `eslint.config.ts` with typescript-eslint and `no-restricted-globals` rule banning `window`/`document`/`localStorage` inside `src/lib/`.
-- [ ] Add `src/index.html` (Vite entry, semantic landmarks: `<header>`, `<nav>`, four `<section>` elements, `<footer>`).
+- [ ] Create `eslint.config.js` (not `.ts`) with typescript-eslint and `no-restricted-globals` rule banning `window`/`document`/`localStorage` inside `src/lib/`. Using `.js` avoids the need for an extra loader.
+- [ ] Add `index.html` at the **repo root** (Vite's default root); include semantic landmarks: `<header>`, `<nav>`, four `<section>` elements, `<footer>`.
 - [ ] Add `public/manifest.json` (name, short name, display: standalone).
 - [ ] Add `.github/workflows/deploy.yml` (build on push to `main`, deploy `dist/` to GitHub Pages).
 - **Refs:** R8 (AC 31–32)
@@ -66,9 +66,10 @@
 - **Refs:** R2 (AC 7–8)
 
 ## T9 — Dead Phone Drill UI (`src/ui/drill.ts`)
-- [ ] On session start, collect contacts where `mustMemorize && isDue(nextDue, today)`; show "nothing due" message if empty.
+- [ ] On session start, collect contacts where `mustMemorize && isDue(nextDue, today)`; show "nothing due" message if empty. Cap the session at **5 cards** — if more than 5 contacts are due, pick the 5 with the earliest `nextDue` (ties broken by contact `id`).
 - [ ] Present one card at a time: show name and relation, ask for digits via `<input type="tel">`.
-- [ ] On submit, compare normalised input against stored phone; call `recordCorrect` or `recordIncorrect`; update storage.
+- [ ] On submit, normalise both the user's input and the stored phone via `normalise()` before comparing, so formatting differences (e.g. "555-0123" vs "5550123") never count as wrong.
+- [ ] Call `recordCorrect` or `recordIncorrect` on the result; update storage.
 - [ ] Announce result in `aria-live="polite"` region; reveal correct number on incorrect.
 - [ ] After all cards answered, append entry to `drillLog`, re-render streak.
 - [ ] Entire flow operable by keyboard only (Enter to submit, focus managed between cards).
@@ -92,8 +93,8 @@
 - **Refs:** R4 (AC 13–14)
 
 ## T13 — Service worker and offline support
-- [ ] Add `src/sw.ts` (Workbox-free, manual cache-first strategy): on `install`, cache all Vite-emitted assets; on `fetch`, serve from cache with network fallback.
-- [ ] Register service worker in `main.ts` after page load.
+- [ ] Add `public/sw.js` (plain JavaScript, no TypeScript, no Workbox): versioned cache name constant; on `install`, cache all same-origin assets needed for offline use; on `activate`, delete any caches whose name does not match the current version; on `fetch`, serve same-origin GET requests cache-first with network fallback.
+- [ ] Register the service worker in `main.ts` using a relative URL (`./sw.js`) so it resolves correctly under the `/dead-phone-directory/` base path. No Vite plugin required — Vite copies `public/` files verbatim.
 - [ ] Verify zero network requests at runtime (no external fonts, no analytics).
 - **Refs:** R8 (AC 31–32)
 
