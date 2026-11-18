@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Dead Phone Directory: your household phone book for when the phones are dead." />
+    <link rel="manifest" href="./manifest.json" />
+    <title>Dead Phone Directory</title>
+    <script type="module" crossorigin src="/dead-phone-directory/assets/index-JX6fLgkw.js"></script>
+    <link rel="stylesheet" crossorigin href="/dead-phone-directory/assets/index-DZ5njvYR.css">
+  </head>
+  <body>
+    <header>
+      <h1>☎ Dead Phone Directory</h1>
+      <button id="theme-toggle" type="button" class="btn-theme">Theme: System</button>
+    </header>
+
+    <nav aria-label="Main navigation">
+      <ul role="list">
+        <li><a href="#section-directory" aria-current="page">Directory</a></li>
+        <li><a href="#section-drill">Drill</a></li>
+        <li><a href="#section-plan">Plan</a></li>
+        <li><a href="#section-print">Print</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section id="section-directory" aria-labelledby="heading-directory">
+        <h2 id="heading-directory">Directory</h2>
+
+        <div id="intro-panel" class="intro-panel" aria-label="About Dead Phone Directory">
+          <h3 class="intro-heading">Your phone just died. Who can you still call?</h3>
+          <p class="intro-tagline">Dead Phone Directory brings back the paper home phone book, and the old habit of knowing the numbers that matter by heart.</p>
+          <ul class="intro-points" role="list">
+            <li>Learn key numbers by heart with a 2-minute daily drill and a candle streak</li>
+            <li>Print a true-size wallet card and a fridge sheet</li>
+            <li>Private and offline: nothing leaves this device</li>
+          </ul>
+          <div class="intro-actions">
+            <button id="btn-intro-demo" type="button" class="btn btn-primary">Try the demo</button>
+            <button id="btn-intro-drill" type="button" class="btn btn-secondary">Start the drill</button>
+          </div>
+        </div>
+
+        <div class="directory-toolbar">
+          <span id="contacts-count" class="contact-count"></span>
+          <div class="toolbar-actions">
+            <button id="btn-load-demo" type="button" class="btn btn-secondary btn-sm">
+              Load demo data
+            </button>
+            <button id="btn-export" type="button" class="btn btn-secondary btn-sm">
+              Export
+            </button>
+            <label class="btn btn-secondary btn-sm import-label" for="import-file">
+              Import
+              <input
+                type="file"
+                id="import-file"
+                accept=".json,application/json"
+                class="sr-only"
+              />
+            </label>
+          </div>
+        </div>
+        <div id="import-error" class="field-error" role="alert" aria-live="assertive"></div>
+        <div id="contacts-add-area"></div>
+        <div id="contacts-alpha" class="alpha-index" aria-label="Alphabetical index"></div>
+        <div id="contacts-list"></div>
+        <div id="emergency-list"></div>
+        <div id="contacts-form-area"></div>
+      </section>
+
+      <section id="section-drill" aria-labelledby="heading-drill" hidden>
+        <h2 id="heading-drill">Dead Phone Drill</h2>
+        <div id="streak-display" aria-live="polite"></div>
+        <div id="drill-session"></div>
+      </section>
+
+      <section id="section-plan" aria-labelledby="heading-plan" hidden>
+        <h2 id="heading-plan">Household Plan</h2>
+        <form id="plan-form" novalidate></form>
+      </section>
+
+      <section id="section-print" aria-labelledby="heading-print" hidden>
+        <h2 id="heading-print">Print</h2>
+        <div id="print-actions"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>All data stored locally on your device. No network required.</p>
+    </footer>
+
+    <!-- Print-only layouts (hidden on screen) -->
+    <div class="print-wallet" aria-hidden="true"></div>
+    <div class="print-fridge" aria-hidden="true"></div>
+
+  </body>
+</html>
