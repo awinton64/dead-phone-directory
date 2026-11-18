@@ -50,6 +50,7 @@
 18. WHEN a user types incorrect digits THEN the system SHALL move that contact back to box 1, reveal the correct number, and show feedback via an `aria-live` region.
 19. WHEN a drill session ends (all due cards answered) THEN the system SHALL record today's ISO date in the drill log and update the streak display.
 20. WHEN a user is drilling THEN the system SHALL allow completing the entire session using keyboard only (no mouse required).
+21. WHEN a user answers a card and presses Next THEN the system SHALL display exactly one Next/Finish button at a time, present each card exactly once in order, and prevent a second answer submission on the same card.
 
 **US-8.** As a user, I want a daily streak counter so that I am motivated to drill every day.
 

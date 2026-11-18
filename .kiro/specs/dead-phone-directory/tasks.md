@@ -73,7 +73,8 @@
 - [x] Announce result in `aria-live="polite"` region; reveal correct number on incorrect.
 - [x] After all cards answered, append entry to `drillLog`, re-render streak.
 - [x] Entire flow operable by keyboard only (Enter to submit, focus managed between cards).
-- **Refs:** R5 (AC 15–20), R6 (AC 23–26)
+- [x] Regression test (`src/ui/drill.test.ts`, happy-dom): 3-card session (1 correct, 1 wrong, 1 correct) asserts exactly one .drill-next after every answer, cards appear in order 1/3, 2/3, 3/3, every card answered exactly once, and summary shows 2 correct, 1 missed.
+- **Refs:** R5 (AC 15–21), R6 (AC 23–26)
 
 ## T10: Streak display
 - [x] After each completed drill session and on page load, call `computeStreak` with `drillLog` dates and today.

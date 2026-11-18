@@ -192,6 +192,11 @@ function renderCard(
   feedbackEl: HTMLElement,
   onAnswer: (input: string) => void,
 ): HTMLInputElement {
+  // Remove any stale Next/Finish button left over from the previous card.
+  container.ownerDocument
+    .querySelectorAll(".drill-next")
+    .forEach((btn) => btn.remove());
+
   container.innerHTML = "";
   feedbackEl.removeAttribute("data-visible");
   feedbackEl.removeAttribute("data-result");
@@ -362,6 +367,7 @@ export function initDrill(state: AppState, onSave: SaveCallback): void {
     // so we work on the state.contacts entries directly by id.
 
     function showCard(): void {
+      answered = false;
       const contact = cards[cardIndex]!;
       const inputEl = renderCard(
         cardContainer,
@@ -375,7 +381,11 @@ export function initDrill(state: AppState, onSave: SaveCallback): void {
       requestAnimationFrame(() => inputEl.focus());
     }
 
+    let answered = false;
+
     function handleAnswer(raw: string): void {
+      if (answered) return;
+      answered = true;
       const contact = cards[cardIndex]!;
 
       let userDigits: string | null = null;
