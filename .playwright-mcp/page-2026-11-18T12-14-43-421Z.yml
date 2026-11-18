@@ -1,0 +1,109 @@
+- generic [active] [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - heading "☎ Dead Phone Directory" [level=1] [ref=f3e3]
+    - 'button "Theme: System" [ref=f3e4] [cursor=pointer]'
+  - navigation "Main navigation" [ref=f3e5]:
+    - list [ref=f3e6]:
+      - listitem [ref=f3e7]:
+        - button "Directory" [ref=f3e8] [cursor=pointer]
+      - listitem [ref=f3e9]:
+        - button "Drill" [ref=f3e10] [cursor=pointer]
+      - listitem [ref=f3e11]:
+        - button "Plan" [ref=f3e12] [cursor=pointer]
+      - listitem [ref=f3e13]:
+        - button "Print" [ref=f3e14] [cursor=pointer]
+  - main [ref=f3e15]:
+    - region "Directory" [ref=f3e16]:
+      - heading "Directory" [level=2] [ref=f3e17]
+      - text: ☎ ☎ ☎
+      - generic [ref=f3e18]:
+        - generic [ref=f3e19]: 5/10 contacts
+        - generic [ref=f3e20]:
+          - button "Load demo data" [ref=f3e21] [cursor=pointer]
+          - button "Export" [ref=f3e22] [cursor=pointer]
+          - generic [ref=f3e23] [cursor=pointer]:
+            - text: Import
+            - button "Import" [ref=f3e24]
+      - alert
+      - button "+ Add Contact" [ref=f3e26] [cursor=pointer]
+      - generic "Alphabetical index" [ref=f3e27]:
+        - generic [aria-hidden] [ref=f3e28]: A
+        - generic [aria-hidden] [ref=f3e29]: D
+        - generic [aria-hidden] [ref=f3e30]: M
+        - generic [aria-hidden] [ref=f3e31]: "N"
+        - generic [aria-hidden] [ref=f3e32]: U
+      - generic [ref=f3e33]:
+        - generic [ref=f3e34]:
+          - heading "A" [level=3] [ref=f3e35]
+          - list [ref=f3e36]:
+            - listitem [ref=f3e37]:
+              - generic [ref=f3e38]:
+                - text: Aunt Mavis (demo)
+                - generic [ref=f3e39]:
+                  - text: Aunt
+                  - generic "Must memorize" [ref=f3e40]: ★ Memorize
+              - generic [ref=f3e41]: (212) 555-0103
+              - generic [ref=f3e42]:
+                - button "Edit Aunt Mavis (demo)" [ref=f3e43] [cursor=pointer]: Edit
+                - button "Delete Aunt Mavis (demo)" [ref=f3e44] [cursor=pointer]: Delete
+        - generic [ref=f3e45]:
+          - heading "D" [level=3] [ref=f3e46]
+          - list [ref=f3e47]:
+            - listitem [ref=f3e48]:
+              - generic [ref=f3e49]:
+                - text: Dad (demo)
+                - generic [ref=f3e50]:
+                  - text: Father
+                  - generic "Must memorize" [ref=f3e51]: ★ Memorize
+              - generic [ref=f3e52]: (212) 555-0102
+              - generic [ref=f3e53]:
+                - button "Edit Dad (demo)" [ref=f3e54] [cursor=pointer]: Edit
+                - button "Delete Dad (demo)" [ref=f3e55] [cursor=pointer]: Delete
+        - generic [ref=f3e56]:
+          - heading "M" [level=3] [ref=f3e57]
+          - list [ref=f3e58]:
+            - listitem [ref=f3e59]:
+              - generic [ref=f3e60]:
+                - text: Mom (demo)
+                - generic [ref=f3e61]:
+                  - text: Mother
+                  - generic "Must memorize" [ref=f3e62]: ★ Memorize
+              - generic [ref=f3e63]: (212) 555-0101
+              - generic [ref=f3e64]:
+                - button "Edit Mom (demo)" [ref=f3e65] [cursor=pointer]: Edit
+                - button "Delete Mom (demo)" [ref=f3e66] [cursor=pointer]: Delete
+        - generic [ref=f3e67]:
+          - heading "N" [level=3] [ref=f3e68]
+          - list [ref=f3e69]:
+            - listitem [ref=f3e70]:
+              - generic [ref=f3e71]:
+                - text: Neighbor Dolores (demo)
+                - generic [ref=f3e72]: Neighbor
+              - generic [ref=f3e73]: (212) 555-0105
+              - generic [ref=f3e74]:
+                - button "Edit Neighbor Dolores (demo)" [ref=f3e75] [cursor=pointer]: Edit
+                - button "Delete Neighbor Dolores (demo)" [ref=f3e76] [cursor=pointer]: Delete
+        - generic [ref=f3e77]:
+          - heading "U" [level=3] [ref=f3e78]
+          - list [ref=f3e79]:
+            - listitem [ref=f3e80]:
+              - generic [ref=f3e81]:
+                - text: Uncle Herb (demo)
+                - generic [ref=f3e82]: Uncle
+              - generic [ref=f3e83]: (212) 555-0104
+              - generic [ref=f3e84]:
+                - button "Edit Uncle Herb (demo)" [ref=f3e85] [cursor=pointer]: Edit
+                - button "Delete Uncle Herb (demo)" [ref=f3e86] [cursor=pointer]: Delete
+      - generic [ref=f3e88]:
+        - heading "Emergency Numbers" [level=3] [ref=f3e89]
+        - generic [ref=f3e90]:
+          - generic [ref=f3e91]: Emergency
+          - generic [ref=f3e92]: "911"
+        - generic [ref=f3e93]:
+          - generic [ref=f3e94]: Suicide & Crisis Lifeline
+          - generic [ref=f3e95]: "988"
+        - generic [ref=f3e96]:
+          - generic [ref=f3e97]: Poison Control
+          - generic [ref=f3e98]: 1 (800) 222-1222
+  - contentinfo [ref=f3e99]:
+    - paragraph [ref=f3e100]: All data stored locally on your device. No network required.

@@ -1,0 +1,85 @@
+Let me start by reading the relevant files.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+Now I have a clear picture. Let me also check the storage module for `demoState` to understand the shape I need for the test fixture.
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+Now I have everything I need. Let me execute all three changes in parallel: fix the bug in `drill.ts`, create the test file, and install `happy-dom`.
+[tool] Install happy-dom as a dev dependency
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Now fix the bug in `drill.ts`. Two changes: (1) remove any existing `.drill-next` at the start of `renderCard`, and (2) guard `handleAnswer` against double-invocation.
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+The file is clean. No network access of any kind.
+
+Now add the guard against double-invocation in `handleAnswer`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now I need to reset `answered` when moving to the next card. Looking at the structure: `answered` is declared inside `runSession` but `handleAnswer` is passed as a callback to `renderCard` via `showCard`. Each call to `showCard` creates a fresh closure via `renderCard`'s `onAnswer` parameter, but `answered` is in `runSession` scope and persists across cards. I need to reset it in `showCard`.
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now write the regression test and update the config/specs:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now update `vitest.config.ts`, `requirements.md`, and `tasks.md`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now run the tests, lint, and build:
+[tool] Run full test suite
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+All 121 tests pass. Now lint and build:
+[tool] Run lint and build
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+All green. Here's a summary of every change made:
+
+**Bug fix (`src/ui/drill.ts`):**
+- `renderCard` now calls `document.querySelectorAll(".drill-next").forEach(btn => btn.remove())` before rebuilding the card, so any leftover Next/Finish button from the previous card is gone before the new one can be added.
+- `showCard` resets an `answered` flag to `false` before each card. `handleAnswer` checks that flag and returns immediately on a second call, so a stale button or double-click can never score or advance a card twice.
+
+**Regression test (`src/ui/drill.test.ts`):**
+- `// @vitest-environment happy-dom` at the top; 8 assertions covering the exact repro path: button count after each answer, progress label sequence (1/3, 2/3, 3/3), Finish label on the last card, final summary text ("2 correct, 1 missed"), and double-submit guard.
+
+**Config (`vitest.config.ts`):** `include` widened to also pick up `src/ui/**/*.test.ts`; lib coverage settings unchanged.
+
+**Specs:** AC 21 added to R5 in `requirements.md`; regression test bullet added and refs updated in T9 of `tasks.md`.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Everything that was done this session is already ticked. The one remaining unchecked item, T13's "Verify zero network requests at runtime," was already open before this session and wasn't touched. No changes needed.

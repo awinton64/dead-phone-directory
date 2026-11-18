@@ -1,0 +1,125 @@
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+Now I have everything I need. Let me check whether a hooks directory already exists:
+[tool] Check for existing hooks directory
+[denied] tool permission approval is not supported in non-interactive mode. Use --trust-tools=run_command to auto-approve this tool, or --trust-all-tools to auto-approve every tool.
+[tool] status: Failed: Check for existing hooks directory
+[tool] Tool Load
+[tool] status: Completed
+Now I'll make all the spec edits and create the hooks in parallel where possible. Starting with the spec fixes:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now fix T13 in tasks.md (plain `public/sw.js` instead of `src/sw.ts`):
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now fix T1 in tasks.md (`eslint.config.js` and `index.html` at repo root):
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now add the drill session cap (≤5 cards) and normalised comparison to T9 in tasks.md, and the matching drill requirement in design.md. First tasks.md:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now update the drill section in design.md to document the same two rules:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+I need to find the right place in design.md to add the drill session rules. Let me add them in the Module interfaces section, anchored to drill.ts, and also update requirements.md:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now update requirements.md to reflect the two drill rules:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Also update structure.md to reflect `eslint.config.js` and `index.html` at repo root:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Failed: Replace in File
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+The `eslint.config.js` change already took. Now I need to also update the tree to reflect `index.html` at root and add `public/sw.js`. The file uses Unicode box-drawing characters that are tricky to match — I'll rewrite the whole file:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Also update tech.md to reflect `eslint.config.js`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now create the four hooks. I'll fire all four in parallel:
+[tool] Create Hook
+[tool] status: Completed
+[tool] Create Hook
+[tool] status: Completed
+[tool] Create Hook
+[tool] status: Completed
+[tool] Create Hook
+[tool] status: Completed
+All done. Here's a summary of every change made.
+
+---
+
+## Spec fixes
+
+**design.md**
+
+- `isServiceNumber` docstring updated to: *"Returns true for N11 codes (`/^[2-9]11$/`) and for `"988"`."*
+- P4 updated to: *"`isServiceNumber` returns true iff the string matches `/^[2-9]11$/` or equals `"988"` exactly."*
+- New **Drill session rules** section added before the UI sections table, documenting the two rules:
+  - Answers are compared after `normalise()` on both sides, so formatting never counts as wrong.
+  - Sessions cap at 5 cards (earliest `nextDue` first, `id` breaks ties).
+
+**tasks.md**
+
+- **T1**: `eslint.config.ts` → `eslint.config.js` with a note that plain JS needs no loader; `src/index.html` → `index.html` at repo root (Vite default).
+- **T9**: drill session now collects at most 5 cards; submit handler normalises both inputs before comparing.
+- **T13**: `src/sw.ts` replaced with `public/sw.js` (plain JS, verbatim Vite copy, versioned cache name, cache-first + old-cache cleanup on activate, no Workbox, no plugin); registration uses `./sw.js` relative URL.
+
+**requirements.md**
+
+- AC 15: added "up to a maximum of 5 cards per session (earliest `nextDue` first)".
+- AC 17: now states `normalise()` is called on both values before comparison.
+
+**steering/structure.md** — full rewrite to reflect:
+- `index.html` at repo root, `src/index.html` removed.
+- `public/sw.js` added.
+- `eslint.config.ts` → `eslint.config.js`.
+- Added service-worker convention note.
+
+**steering/tech.md** — ESLint entry updated to `eslint.config.js` with the plain-JS note.
+
+---
+
+## Hooks created (`.kiro/hooks/`)
+
+| Hook | Trigger | Matcher | Action |
+|---|---|---|---|
+| `lib-tests-on-save` | `PostFileSave` | `src/lib/` | `npm test -- --run` |
+| `lint-on-save` | `PostFileSave` | `src/.*\.ts$` | `npm run lint` |
+| `privacy-guard` | `PostFileSave` | `(^|/)src/\|(^|/)public/` | Agent scans for fetch/XHR/WebSocket/sendBeacon/external URLs; reports and removes any found |
+| `spec-sync` | `Stop` | — | Agent ticks completed checkboxes in `tasks.md` |No application code was written or verified in this session — only spec files and hook configurations were edited. None of the task checkboxes in `tasks.md` represent that kind of work, so none should be ticked.

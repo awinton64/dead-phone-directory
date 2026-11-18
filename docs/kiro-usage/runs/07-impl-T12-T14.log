@@ -1,0 +1,120 @@
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Failed: Read File
+[tool] status: Completed
+Now I have a clear picture. Let me implement all three tasks.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`src/ui/print.ts` is clean — no network access, fetch, XHR, WebSocket, sendBeacon, external URLs, or analytics.
+
+Now continuing with the remaining files:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`src/styles/print.css` is clean — no network access of any kind.
+
+Now the service worker and the remaining files:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`public/sw.js` uses `fetch()` on line 62, but that is the cache-first network fallback inside the service worker's `fetch` event handler — it fetches same-origin assets only (enforced by the `url.origin !== self.location.origin` guard above it) and caches them locally. No external URLs, no analytics, no telemetry. This is the intended offline caching mechanism, not outbound data exfiltration. The file is clean with respect to the product's privacy promise.
+
+Continuing with the theme toggle, drill fixes, main.ts wiring, and README:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now fix the drill to use a Next button instead of auto-advance:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now update `main.ts` to wire `initPrint` and register the service worker:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now add `initPrint` and service worker registration to the `boot` function:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — `navigator.serviceWorker.register` fetches only the same-origin `./sw.js` asset, which is a local file copy, not an external endpoint. No data leaves the device.
+
+Now update `index.html` to fix the theme button (text instead of icon) and add the `wallet-faces-row` wrapper the print CSS expects:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+The print CSS expects `.wallet-faces-row` to wrap the two `.wallet-face` divs for the side-by-side layout. That wrapper is built in `print.ts` at print time (the `buildWallet()` function populates `.print-wallet` directly). I need to adjust `buildWallet` to wrap the faces in a `.wallet-faces-row` div:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now I need to finish the `buildWallet` function — the `facesRow` wrapper was added but the two faces aren't appended to it yet. Let me read the current state:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now fix the back face to append to `facesRow` and append `facesRow` to `container`:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+The incremental edits have left `buildWallet` in a broken state. Let me rewrite `print.ts` cleanly in one shot:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+I can see the problem: `facesRow.appendChild(front)` is there but the back is still doing `container.appendChild(back)` and there's a stray comment. Let me rewrite the whole file cleanly:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now write the README and then run the checks:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed

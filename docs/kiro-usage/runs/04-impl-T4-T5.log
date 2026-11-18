@@ -1,0 +1,104 @@
+Let me start by reading the relevant files.
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Now I have enough context. Let me write the two modules and their tests.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`streak.ts` is clean — no network access of any kind.
+
+Now writing the streak tests and storage module:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`streak.test.ts` is clean — no network access.
+
+Now writing `storage.ts`:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`storage.ts` is clean — no network access.
+
+Now writing the storage tests:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`storage.test.ts` is clean — no network access.
+
+Now running the tests and linter:
+[tool] Run all tests
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Failed: Run all tests
+Two issues to fix:
+
+1. Demo phone numbers like `(555) 010-0101` have exchange `010` — first digit `0` fails NANP validation. Need numbers where the exchange starts with 2–9. Use `(555) 201-0100` through `(555) 201-0104` style — wait, the spec says 555-0100 to 555-0199 range. The 555-01xx numbers parse as area=555, exchange=010 which is invalid. I need to use a real-looking area code with 555-01xx as the subscriber portion. Use e.g. `(212) 555-0101` format: area=212, exchange=555, subscriber=01xx. That's the standard fictional TV number format and fits "555-0100 to 555-0199".
+
+2. The test contacts for bad-box and bad-nextDue tests use `5550100100` which also fails NANP. Fix those to use a valid phone like `2125550101`.
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+`storage.ts` is clean — no network access.
+
+Now fix the test phone numbers and the regex used to verify them:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+`storage.test.ts` is clean — no network access.
+
+Now fix the bad-box and bad-nextDue test contacts (they used `5550100100` which fails NANP):
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+`storage.test.ts` is clean — no network access.
+[tool] Run all tests
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+All 113 tests pass. Now running the linter:
+[tool] Run ESLint
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Both pass clean. Now tick T4 and T5 in tasks.md:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Done. Summary of what was built:
+
+**T4 — `src/lib/streak.ts`**
+- `computeStreak(dates, today)` deduplicates and sorts the input, finds the trailing run ending on today or yesterday for `current`, scans all runs for `longest`.
+- 17 tests covering empty log, single-entry cases, consecutive runs, gaps, unsorted input, duplicates, and all four properties P9–P12.
+
+**T5 — `src/lib/storage.ts`**
+- Full type definitions (`AppState`, `Contact`, `HouseholdPlan`, `DrillLogEntry`, `Box`).
+- `EMERGENCY_CONTACTS` compile-time constant (911, 988, Poison Control).
+- `loadState`/`saveState` accept an optional `StorageLike` argument (defaults to `globalThis.localStorage`) so the module stays Node-testable with no browser globals.
+- `loadState` returns `emptyState()` on missing or corrupt data, never throws.
+- `importState` validates every field: version, contact count ≤10, phone via `normalise()`, box 1–5, ISO date format, string lengths.
+- `demoState` uses `(212) 555-01xx` numbers (area 212, exchange 555, subscriber 01xx) — the standard fictional TV number format, all NANP-valid, with 3 of 5 contacts flagged `mustMemorize`, all names suffixed `(demo)`.
+- ID generator falls back from `crypto.randomUUID` to a timestamp+random hex string.
+- 35 tests covering all unit cases and properties P13–P15.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+T4 and T5 are already fully ticked from the work done this session. No changes needed — the file is current.

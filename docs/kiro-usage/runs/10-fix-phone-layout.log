@@ -1,0 +1,80 @@
+Let me start by reading the relevant files.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Now let me look at the contacts UI to understand where the "+ Add Contact" button is rendered:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Now I have a full picture. Here are the three fixes:
+
+1. **Header**: allow wrapping so the theme button drops below on narrow screens.
+2. **Contact rows**: switch to a stacked layout below 400px so name and number never overlap; allow name to wrap.
+3. **"+ Add Contact" button**: the `contacts-add-area` div is in the HTML after `contacts-list` and `emergency-list`. Move it before the alpha index in the HTML so it sits above the A-Z list. The JS also dynamically repositions it, so I'll adjust that too.
+
+Let me fix the HTML first (move `contacts-add-area` above `contacts-alpha`):
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now fix the JS: the `initContacts` function dynamically re-places `contacts-add-area` relative to `alphaEl`. Since the HTML now has the correct order, update that fallback logic so it stays above `alphaEl`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+`contacts.ts` is clean — no network access.
+
+Now fix the CSS for the two layout bugs:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+`layout.css` is clean — no network access.
+
+Now fix the contact row overlap in `directory.css`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+`directory.css` is clean — no network access.
+
+Now also fix `.contact-name` — it currently has `white-space: nowrap` which prevents wrapping on narrow screens:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean. Now run lint and build:
+[tool] Run ESLint
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Run Vite build
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Both pass. Here's a summary of what changed:
+
+**`index.html`**: moved `contacts-add-area` before `contacts-alpha`, so the "+ Add Contact" button renders above the A-Z index tabs.
+
+**`src/ui/contacts.ts`**: updated the fallback DOM-creation order to match — alpha index is placed first, then the add-area is inserted before it.
+
+**`src/styles/layout.css`** (header fix):
+- Added `flex-wrap: wrap` to `header` so items can wrap at narrow widths.
+- Made `h1` `flex: 1 1 auto` with `min-width: 0` and `text-overflow: ellipsis` so the title shrinks before it overflows.
+- Made `#theme-toggle` `flex: 0 0 auto` so it never grows but wraps below the title if the row is too narrow.
+
+**`src/styles/directory.css`** (directory row fix):
+- Changed `.contact-row` to a 3-column grid (`minmax(0, 1fr) auto auto`) so the name column is bounded and can't push the phone off-screen.
+- Added a `@media (max-width: 400px)` block that switches to 2-column, 2-row stacking: name/relation spans the full top row, phone and actions sit side-by-side on the row below.
+- Removed `white-space: nowrap; overflow: hidden; text-overflow: ellipsis` from `.contact-name` and replaced it with `overflow-wrap: break-word` so long names wrap rather than truncate or overflow.
+- `.contact-phone` retains `white-space: nowrap` throughout, so numbers never break mid-digit.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+The work in this session was CSS and markup layout fixes (header wrapping, contact row stacking, button repositioning) plus the contacts.ts DOM-order adjustment. None of these correspond to unchecked tasks in the file — the relevant items in T6, T7, and T14 were already ticked. The one remaining unchecked item (T13 "Verify zero network requests at runtime") is a verification step unrelated to this session's work.
+
+No changes needed to `tasks.md`.

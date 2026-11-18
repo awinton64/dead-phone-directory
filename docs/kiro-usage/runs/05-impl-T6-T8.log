@@ -1,0 +1,159 @@
+Let me start by reading the existing files to understand the current state.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Check existing src directory structure
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Check existing styles, ui, and main.ts
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] List styles and ui directories
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Both directories are empty. Now I have everything I need. Let me implement all the files.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+The file is clean — no network access of any kind.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now the UI modules:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now `main.ts` and the updated `index.html`:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now update `index.html` to add the missing DOM anchors (`contacts-form-area`, `contacts-add-area`, demo button) and link the CSS imports (Vite handles them via `main.ts`, so the HTML just needs the script tag which is already there):
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Let me check what was actually implemented before ticking anything.
+[tool] Run tests to verify lib passes
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] Run lint to check for failures
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+[tool] Run build to check for failures
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Failed: Run build to check for failures
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+`moduleResolution: bundler` with `verbatimModuleSyntax` requires `allowImportingTsExtensions` to allow `.ts` in import paths, but that flag also requires `noEmit`. The existing lib files already use `.ts` extensions, so the fix is to add `allowImportingTsExtensions: true` and `noEmit: true` to `tsconfig.json`, then do the type-check separately via a `tsc --noEmit` that excludes test files — but actually `tsc --noEmit` is what `npm run build` runs first. The cleanest fix matching the existing pattern is to enable `allowImportingTsExtensions`.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Check build script definition
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+The existing lib files already import with `.ts` extensions (e.g. `storage.ts` imports `./phone.ts`) and tests pass, meaning the vitest config uses `allowImportingTsExtensions` implicitly. The issue is `tsc --noEmit` in the build script doesn't have it. The right fix: add `allowImportingTsExtensions: true` to `tsconfig.json` — this requires `noEmit` or `emitDeclarationOnly`, but `tsc --noEmit` on the CLI overrides anyway.
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Build after tsconfig fix
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Build passes. The CSS warning is about the nested `@media` inside `:root:not()` in `base.css` — that's a non-standard nesting pattern that esbuild flags. Fix it:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+
+Now add the `@media (prefers-color-scheme: dark)` block back as a proper top-level rule (not nested inside `:root`):
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access.
+[tool] Rebuild after CSS fix
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Clean build. Now run the full suite:
+[tool] Run tests and lint together
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+All green. Now tick the tasks:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+All done. Here's a summary of what was delivered:
+
+**T6 — Styles and theme**
+- `base.css`: full CSS reset, custom properties for warm-paper light palette and deep-sepia dark palette, system serif stack, focus rings, base element styles
+- `layout.css`: phone-first single-column grid, 640px breakpoint, sticky header, nav buttons with `aria-current`, 44px tap targets, `.btn` variants, form helpers
+- `directory.css`: `repeating-linear-gradient` ruled lines, alphabet index tabs, ember-glow heading accent (guarded by `prefers-reduced-motion`), emergency section, memorize badge
+- `drill.css`: drill card, mono phone input, `aria-live` feedback region with correct/incorrect states, `prefers-reduced-motion` guard
+- `print.css`: wallet card (`3.375×2.125in`) and fridge sheet (US Letter) in `@media print`
+- `theme.ts`: reads saved pref, applies `data-theme`, cycles system→light→dark on toggle, listens to `prefers-color-scheme` changes
+
+**T7 — Contacts UI** (`contacts.ts`): alphabetical grouping with letter headings and index tabs, emergency block (read-only), add/edit inline forms with `role="alert"` phone validation, delete confirmation, 10-contact cap, all user text via `textContent`
+
+**T8 — Plan UI** (`plan.ts`): meeting-place and fallback inputs, restored from state on mount, `role="alert"` errors, `aria-live` save confirmation
+
+**main.ts**: boots app, section nav with `aria-current` buttons, theme init, contacts + plan init, demo data button with `confirm()` guard
+
+All checks pass: 113 tests ✓, lint ✓, build ✓

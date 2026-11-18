@@ -1,6 +1,6 @@
 # Dead Phone Directory
 
-A Kiroween 2026 Resurrection entry. It resurrects the paper home phone book so the numbers that matter are not trapped in a phone that is dead, lost, or stolen. Households build a short contact list, print a wallet card and fridge sheet, and run daily drills to actually memorize the numbers that count.
+A Kiroween 2026 Resurrection entry. It resurrects the paper home phone book so the numbers that matter are not trapped in a phone that is dead, lost, or stolen. Its core is the Dead Phone Drill: a two-minute daily spaced-repetition drill that gets the numbers that matter back into your head, with a candle streak. It also prints a true-size wallet card and a fridge sheet.
 
 **Live app:** https://awinton64.github.io/dead-phone-directory/
 
@@ -23,14 +23,26 @@ A Kiroween 2026 Resurrection entry. It resurrects the paper home phone book so t
 
 ## How Kiro was used
 
-Built with the **Kiro CLI** (headless `kiro-cli chat --v3 --no-interactive` runs, free tier). Everything Kiro used is in [`/.kiro`](.kiro):
+Built with the **Kiro CLI** (16 headless `kiro-cli chat --v3 --no-interactive` runs on the free tier, about 40 credits). Everything Kiro used is in [`/.kiro`](.kiro), and every run's prompt, credits and transcript is public in [`docs/kiro-usage/`](docs/kiro-usage/).
 
-- **Spec-driven, not vibe-coded.** Kiro wrote `requirements.md` (EARS acceptance criteria), `design.md` (data model, module interfaces, 15 correctness properties) and `tasks.md` (14 tasks) in `.kiro/specs/dead-phone-directory/`, then implemented the tasks in order, a few per run, ticking them off.
+- **Why the CLI, not the IDE.** The builder is a coding agent working from a terminal, so the headless CLI let every Kiro session be scripted, logged and reproduced: one narrow prompt per task, credits read before and after.
+- **Spec-driven, not vibe-coded.** Kiro wrote `requirements.md` (EARS acceptance criteria), `design.md` (data model, module interfaces, 15 correctness properties) and `tasks.md` in `.kiro/specs/dead-phone-directory/`, then implemented the tasks in order, a few per run, ticking them off. Later bug fixes added acceptance criteria and tasks to the same spec.
 - **Steering** (`.kiro/steering/`): product, tech and structure rules loaded into every run (for example: `src/lib` stays pure and DOM-free, no network access anywhere).
 - **Hooks** (`.kiro/hooks/`): tests on save in `src/lib`, lint on save, a `privacy-guard` agent hook that inspects every saved file for network access, and a `spec-sync` stop hook that keeps `tasks.md` checkboxes honest.
-- **Property-based tests**: `fast-check` properties from `design.md` (phone normalisation round-trips, scheduler box invariants, streak edge cases, storage import/export round-trips), implemented by Kiro in `src/lib/*.test.ts`.
+- **Custom agent + MCP** (`.kiro/agents/qa-auditor.json`): a read-only accessibility and print-layout auditor that drives a real headless browser through the Playwright MCP server. Run 16 used it on the production build; its report is in [`docs/audits/`](docs/audits/2026-11-18-qa-audit.md).
+- **Property-based tests**: `fast-check` properties from `design.md` (phone normalisation round-trips, scheduler box invariants, streak edge cases, storage import/export round-trips) in `src/lib/*.test.ts`, plus a DOM regression test for the drill (`src/ui/drill.test.ts`).
 
-**Disclosure.** Kiro wrote the spec, steering, hooks and essentially all application code and tests. The entrant's other coding agent (Claude Code) wrote the run prompts, reviewed each result in a real browser, filed the bugs it found back to Kiro as new runs (stale service worker, phone-width layout, drill feedback), and made a few small direct edits: relative hook commands, a house style rule (no em dashes), one print heading, and this README section. The commit history labels every change.
+**Disclosure.** Kiro wrote the spec, steering, hooks, the custom agent and essentially all application code and tests. The entrant's other coding agent (Claude Code) wrote the run prompts, reviewed each result in a real browser, filed the bugs it found back to Kiro as new runs, and made these direct edits itself:
+
+- relative paths in the hook commands;
+- a house style rule (no em dashes) and a punctuation-only pass replacing em dashes;
+- the wallet card front heading ("If my phone is dead, call");
+- `scripts/deploy.sh` (gh-pages deploy, used because the publishing token could not push GitHub Actions workflow files);
+- this README's Kiro and disclosure sections;
+- `docs/kiro-usage/` (log and transcripts) and saving the qa-auditor report to `docs/audits/` (the agent's own write was blocked by its permission rules, so Claude Code copied the text it printed);
+- removing that blocking `deny` rule from `.kiro/agents/qa-auditor.json`.
+
+The commit history labels every change.
 
 ## Local development
 

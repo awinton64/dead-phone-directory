@@ -1,0 +1,128 @@
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Now let me check the current state of the workspace:
+[tool] Check workspace contents
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Clean slate. Let me create everything now.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Install dependencies
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Approve esbuild install script and reinstall
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Approve fsevents install script
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Now create all the config files in parallel:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Create directory structure
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`public/manifest.json` is clean — no network access, fetch calls, external URLs, or analytics.
+
+Now implementing T2 and T3:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`src/lib/phone.ts` is clean — no network access of any kind.
+
+Now the phone tests and scheduler:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access in `src/lib/phone.test.ts`.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access in `src/lib/scheduler.ts`.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access in `src/lib/scheduler.test.ts`.
+
+Now run the tests and lint:
+[tool] Run all tests
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Run ESLint
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Both pass. Now add a minimal `src/main.ts` (needed for the HTML script reference to not break the build) and tick the checkboxes:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access in `src/main.ts`.
+
+Now tick the checkboxes in tasks.md:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Done. Here's a summary of what was created:
+
+**T1 — Scaffold**
+- `package.json` — `type: module`, scripts `dev/build/preview/test/lint`
+- `tsconfig.json` — strict, `moduleResolution: bundler`
+- `vite.config.ts` — base `/dead-phone-directory/`
+- `vitest.config.ts` — node environment, `src/lib/**` only
+- `eslint.config.js` — typescript-eslint + `no-restricted-globals` blocking `window`/`document`/`localStorage` in `src/lib/`
+- `index.html` — `<header>`, `<nav>`, four `<section>` elements, `<footer>`
+- `public/manifest.json` — name, short_name, display: standalone
+- `.github/workflows/deploy.yml` — build → `upload-pages-artifact` → `deploy-pages`
+- All 6 deps installed via `npm install --save-dev --no-audit --no-fund`
+
+**T2 — `phone.ts`**
+- `isServiceNumber` — `/^[2-9]11$/` or `"988"`
+- `normalise` — strips formatting, validates NANP area/exchange codes, accepts 3/10/11-digit
+- `format` — `(NXX) NXX-XXXX` / `1 (NXX) NXX-XXXX` / pass-through for service numbers
+- 36 tests: unit cases covering all formats, rejection paths, plus P1–P4 property tests
+
+**T3 — `scheduler.ts`**
+- `intervalDays` — `2^(box-1)`
+- `recordCorrect` — advances box (capped at 5), due = today + interval; UTC day math avoids DST bugs
+- `recordIncorrect` — resets to box 1, due = today
+- `isDue` — lexicographic ISO comparison
+- 25 tests: all box transitions, month/year/leap-day rollovers, boundary dates, plus P5–P8 property tests
+
+**Results: 61 tests passed, lint clean.**
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+All checkboxes for T1, T2, and T3 are already ticked correctly. T4 through T14 have no completed work this session. No changes needed — the file is accurate as-is.

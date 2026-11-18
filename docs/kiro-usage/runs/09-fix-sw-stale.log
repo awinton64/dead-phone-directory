@@ -1,0 +1,29 @@
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+The file is clean. All `fetch()` calls operate on same-origin requests only (guarded by `url.origin !== self.location.origin`), and there are no external URLs, analytics SDKs, WebSockets, or beacons.
+
+Now updating tasks.md and running the build:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Build the project
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Build passes. Here is what changed in `sw.js`:
+
+- **Navigation / `index.html`**: network-first. The browser tries the network, caches the fresh response, and falls back to the cached copy only when offline. Deployed users now get new HTML immediately.
+- **`assets/` files**: cache-first unchanged. Vite's content hashes make this safe.
+- **Everything else** (manifest, etc.): stale-while-revalidate. Cached copy is served instantly; the cache is refreshed in the background.
+- **`CACHE_NAME`** bumped to `"dpd-v2"`, which triggers the activate handler to delete the old `dpd-v1` cache on first run.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+The only unchecked item is T13's "Verify zero network requests at runtime" sub-item. That requires a manual browser DevTools check (Network tab with the app running), which hasn't been performed in this session. Everything else was already ticked and remains accurate. No changes needed.

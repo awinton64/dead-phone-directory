@@ -1,0 +1,131 @@
+Let me start by reading the relevant files.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Now I have enough context. Let me also check the layout.css for button styles:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Now I have a full picture. Let me implement all the changes:
+
+1. Add the intro panel in `index.html`
+2. Update `src/ui/contacts.ts` for the empty-state text and phone validation message
+3. Update `src/ui/demo.ts` to skip confirm when empty, and expose a `loadDemo` function for the intro panel buttons
+4. Update `src/main.ts` to manage the intro panel visibility
+5. Add CSS for the intro panel in `src/styles/directory.css`
+6. Update the spec files
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now fix the empty state text and phone error message in `contacts.ts`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+The file is clean, no network access found.
+
+Now fix the phone error message in `contacts.ts` to show the user-friendly message instead of the raw `PhoneError`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now update `demo.ts` to export a `loadDemo` function and skip the confirm dialog when the directory is empty:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now update `main.ts` to wire up the intro panel buttons and auto-hide the panel when contacts exist:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now finish wiring main.ts — add the intro panel logic and replace `initDemo` with the new `loadDemo` export:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+I see `initDemo` is still referenced in the body. I need to also import `initDemo` back (it handles export/import buttons) alongside `loadDemo`, or refactor the boot to use `initDemo` for those and `loadDemo` for the intro panel. Looking at `demo.ts`, `initDemo` calls `initDemoButton`, `initExportButton`, and `initImportInput`. I should keep `initDemo` for those and just add `loadDemo` as an additional export.
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now replace the broken `boot()` body — remove the stale `initDemo` call and add the intro panel wiring:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now add the intro panel CSS to `directory.css`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now update the spec files, then run the checks:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now run the checks:
+[tool] Run tests
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Run linter
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Build for production
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+All 121 tests pass, lint is clean, build succeeds. Here is a summary of every change made:
+
+**`index.html`** — Added `#intro-panel` between the `<h2>` and the toolbar, containing the heading, tagline, three bullet points, and both CTA buttons. The panel is a real DOM element that `main.ts` toggles with `hidden`.
+
+**`src/ui/contacts.ts`** — Two copy fixes:
+- Empty state now reads "No contacts yet. Add your first contact above, or try the demo."
+- Phone validation failure now shows "Enter a 10-digit number, or 911 or 988." instead of the raw `PhoneError` message.
+
+**`src/ui/demo.ts`** — Extracted `loadDemo()` as a named export. It skips the confirm dialog when the directory is empty and shows it only when contacts already exist. `initDemoButton` (the toolbar button) now calls `loadDemo`, so the existing confirm behaviour is preserved there too.
+
+**`src/main.ts`** — Added `updateIntroPanel()` (hides/shows `#intro-panel` based on `state.contacts.length`) and `initIntroPanel()` (wires "Try the demo" and "Start the drill" buttons). `initContacts` now also calls `updateIntroPanel` after every save so the panel disappears the moment a contact is added manually.
+
+**`src/styles/directory.css`** — New `.intro-panel`, `.intro-heading`, `.intro-tagline`, `.intro-points`, and `.intro-actions` rules. Buttons wrap at 320 px with no horizontal scroll.
+
+**`requirements.md`** — Added R10 with four acceptance criteria.
+
+**`tasks.md`** — Added ticked T15 referencing R10.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+The T13 "Verify zero network requests" item remains unticked — it was already open before this session and nothing in this session addressed it. T15 is fully ticked and already reflects what was done. The T14 items are floating loose after T15 was inserted; I'll fix the structure to restore T14's heading:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+The file was already accurate for this session's work. The only structural fix needed was restoring the missing `## T14:` heading that got orphaned when T15 was inserted before it. No checkbox states changed: T15 was already fully ticked, and T13's "Verify zero network requests" remains open as it was before.

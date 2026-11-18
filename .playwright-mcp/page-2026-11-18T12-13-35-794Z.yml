@@ -1,0 +1,36 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - heading "☎ Dead Phone Directory" [level=1] [ref=e3]
+    - 'button "Theme: System" [ref=e4] [cursor=pointer]'
+  - navigation "Main navigation" [ref=e5]:
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - button "Directory" [ref=e8] [cursor=pointer]
+      - listitem [ref=e9]:
+        - button "Drill" [ref=e10] [cursor=pointer]
+      - listitem [ref=e11]:
+        - button "Plan" [ref=e12] [cursor=pointer]
+      - listitem [ref=e13]:
+        - button "Print" [ref=e14] [cursor=pointer]
+  - main [ref=e15]:
+    - text: ☎ ☎ ☎
+    - region "Dead Phone Drill" [ref=e125]:
+      - heading "Dead Phone Drill" [level=2] [ref=e126]
+      - generic [ref=e128]:
+        - generic [ref=e129]:
+          - generic [ref=e130]: "0"
+          - generic [ref=e131]: Day streak
+        - generic [ref=e132]:
+          - generic [ref=e133]: "0"
+          - generic [ref=e134]: Longest
+      - generic [ref=e141]:
+        - paragraph [ref=e142]: 1 of 3
+        - paragraph [ref=e143]: Dad (demo)
+        - paragraph [ref=e144]: Father
+        - generic [ref=e145]:
+          - generic [ref=e146]:
+            - generic [ref=e147]: Enter their phone number
+            - textbox "Enter their phone number" [active] [ref=e148]
+          - button "Submit" [ref=e149] [cursor=pointer]
+  - contentinfo [ref=e51]:
+    - paragraph [ref=e52]: All data stored locally on your device. No network required.

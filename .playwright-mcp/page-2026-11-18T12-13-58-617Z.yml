@@ -1,0 +1,65 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - heading "☎ Dead Phone Directory" [level=1] [ref=e3]
+    - 'button "Theme: System" [ref=e4] [cursor=pointer]'
+  - navigation "Main navigation" [ref=e5]:
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - button "Directory" [ref=e8] [cursor=pointer]
+      - listitem [ref=e9]:
+        - button "Drill" [ref=e10] [cursor=pointer]
+      - listitem [ref=e11]:
+        - button "Plan" [ref=e12] [cursor=pointer]
+      - listitem [ref=e13]:
+        - button "Print" [active] [ref=e14] [cursor=pointer]
+  - main [ref=e15]:
+    - text: ☎ ☎ ☎
+    - region "Print" [ref=e173]:
+      - heading "Print" [level=2] [ref=e174]
+      - generic [ref=e175]:
+        - paragraph [ref=e176]: Print a wallet card to keep in your wallet, or a fridge sheet to post at home.
+        - generic [ref=e177]:
+          - button "Print wallet card" [ref=e178] [cursor=pointer]
+          - button "Print fridge sheet" [ref=e179] [cursor=pointer]
+        - paragraph [ref=e180]: For a true-size card, print at 100% scale (Actual size), not Fit to page.
+        - generic [ref=e181]:
+          - heading "Wallet card preview" [level=3] [ref=e182]
+          - paragraph [ref=e183]: "Front: up to 5 must-memorize contacts + 911. Back: meeting place, fallback, 988, Poison Control."
+          - generic [ref=e184]:
+            - generic [ref=e185]:
+              - paragraph [ref=e186]: Front
+              - generic [ref=e187]:
+                - generic [ref=e188]: Emergency
+                - generic [ref=e189]: "911"
+              - generic [ref=e190]:
+                - generic [ref=e191]: Mom (demo)
+                - generic [ref=e192]: (212) 555-0101
+              - generic [ref=e193]:
+                - generic [ref=e194]: Dad (demo)
+                - generic [ref=e195]: (212) 555-0102
+              - generic [ref=e196]:
+                - generic [ref=e197]: Aunt Mavis (demo)
+                - generic [ref=e198]: (212) 555-0103
+            - generic [ref=e199]:
+              - paragraph [ref=e200]: Back
+              - generic [ref=e201]:
+                - generic [ref=e202]: "Meet:"
+                - generic [ref=e203]: Front yard oak tree (demo)
+              - generic [ref=e204]:
+                - generic [ref=e205]: "Fallback:"
+                - generic [ref=e206]: "Dolores next door: 555-0105 (demo)"
+              - generic [ref=e207]:
+                - generic [ref=e208]: Suicide & Crisis Lifeline
+                - generic [ref=e209]: "988"
+              - generic [ref=e210]:
+                - generic [ref=e211]: Poison Control
+                - generic [ref=e212]: 1 (800) 222-1222
+        - generic [ref=e213]:
+          - heading "Fridge sheet preview" [level=3] [ref=e214]
+          - generic [ref=e215]:
+            - paragraph [ref=e216]: Our Dead Phone Directory
+            - paragraph [ref=e217]: 5 contacts · 3 to memorize · 3 emergency numbers
+            - paragraph [ref=e218]: "Plan: Front yard oak tree (demo) · Fallback: Dolores next door: 555-0105 (demo)"
+            - paragraph [ref=e219]: "Printed date: 2026-11-18"
+  - contentinfo [ref=e51]:
+    - paragraph [ref=e52]: All data stored locally on your device. No network required.

@@ -1,0 +1,125 @@
+Let me start by reading the relevant files.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Now let me check the existing UI structure and what's already in place:
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+Now I have everything I need. Let me implement the three UI modules and fix the visual bug.
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`drill.ts` is clean — no network access, fetch, XHR, WebSocket, or external URLs.
+
+Now implementing `src/ui/demo.ts`:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+`demo.ts` is clean — no network access of any kind.
+
+Now update `index.html` to add the export button and import file input, then wire everything up in `main.ts`, and fix the ruled-line visual bug in `directory.css`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Now fix the ruled-line bug in `directory.css`. The issue is that `repeating-linear-gradient` on the `.contact-list` container draws lines at fixed pixel intervals that don't align with row boundaries once padding is added. The fix is to remove the background gradient from the container and instead put a simple `border-bottom` on each row (which is already there), and remove the conflicting gradient entirely:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access in the CSS file.
+
+Now add the candle/streak CSS and toolbar-actions style, then rewrite `main.ts` to wire in `initDrill` and `initDemo`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access in the CSS file.
+
+Now add `toolbar-actions` style to `directory.css` and wire up `main.ts`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access in the CSS file.
+
+Now rewrite `main.ts` to wire in `initDrill` and `initDemo`, and remove the old inline demo button logic:
+[tool] Write File
+[tool] status: Pending
+[tool] status: Completed
+Clean — no network access in `main.ts`.
+
+Now run the full validation suite:
+[tool] Run all tests
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Run ESLint
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+[tool] Build for production
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+All green. Now tick T9–T11 in tasks.md:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+All done. Here's a summary of what was built and changed:
+
+**T9 — `src/ui/drill.ts`**
+- Start screen shows the tagline, due count, and a Start button. If nothing is due, shows next-due date and a "Practice anyway" option (practice sessions still count for streak but don't advance Leitner boxes). If no contacts are flagged, explains how to flag one.
+- One card at a time: name + relation shown, large `type="tel" inputmode="numeric"` input, Enter or button submits. Invalid phone format counts as a miss.
+- Comparison goes through `normalise()` on both sides, so "555-0123" and "5550123" match.
+- Feedback in `aria-live="polite" role="status"` region; incorrect answers reveal the correct number. Focus moves to the next card's input via `requestAnimationFrame`.
+- Summary screen on completion with correct/missed counts; appends a `DrillLogEntry` to state.
+
+**T10 — Streak display**
+- `renderStreak()` exported from `drill.ts`, called on `initDrill` and after each session completes, and when navigating to the Drill section.
+- Shows current streak count, longest streak count, and up to 7 🕯 candle icons with a `sr-only` text alternative.
+
+**T11 — `src/ui/demo.ts`**
+- Demo button moved here; shows a dismissing notice banner confirming the data is fictional.
+- Export button creates a `Blob` and triggers a download of `dead-phone-directory.json` via an object URL (revoked after 1 s).
+- Import uses a `<label>`-wrapped hidden file input (accessible, keyboard-triggerable); reads via `FileReader`, validates with `importState`, confirms before replacing, shows an `aria-live="assertive"` error on failure.
+
+**Visual bug fix**
+- Removed the `repeating-linear-gradient` from `.contact-list` — it was drawing lines at fixed 52 px intervals anchored to the container top, which cut through relation text at arbitrary heights. The `border-bottom` already on each `.contact-row` provides clean ruled lines aligned to actual row boundaries.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+All checkboxes for T9, T10, and T11 are already ticked correctly from earlier in the session. T12–T14 remain untouched as instructed. No changes needed.

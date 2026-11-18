@@ -1,0 +1,47 @@
+[tool] Read File
+[tool] status: InProgress
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+[tool] status: Completed
+The issue is clear. `walletPreviewRow` always uses `.wallet-row-phone` (nowrap, no-shrink) for the second column, even for meeting place and fallback text values. I need a separate path for those two rows that lets the value wrap normally.
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+The file is clean. No network access found.
+
+Now I'll swap the Meet/Fallback rows to use `walletPreviewTextRow` and add the CSS for the new classes:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now add the CSS for `.wallet-row-preview--text`, `.wallet-row-label`, and `.wallet-row-value`:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now also fix the name truncation issue for contact names on the front face. The request says names may wrap instead of truncating. I'll also need to update `.wallet-row-name` to allow wrapping on screen:
+[tool] Replace in File
+[tool] status: Pending
+[tool] status: Completed
+Clean, no network access.
+
+Now run lint and build:
+[tool] Lint and build
+[tool] status: InProgress
+[tool] status: InProgress
+[tool] status: Completed
+Both pass. Here's what changed:
+
+**`src/ui/print.ts`:** Added a second helper `walletPreviewTextRow(label, value)` that renders the label in a `.wallet-row-label` span and the value in a `.wallet-row-value` span. The Meet and Fallback rows now use this helper instead of `walletPreviewRow`, so the value is never put in the nowrap phone span.
+
+**`src/styles/print.css`:**
+- `.wallet-row-name` no longer forces `white-space: nowrap` / `text-overflow: ellipsis` on screen. Names wrap to a second line instead of being clipped.
+- Added `.wallet-row-preview--text` (`flex-wrap: wrap`), `.wallet-row-label` (bold, nowrap), and `.wallet-row-value` (`word-break: break-word`) for the text-value rows.
+- No `@media print` rules were touched.
+[tool] Read File
+[tool] status: InProgress
+[tool] status: Completed
+This session only fixed a screen-preview regression in `print.ts` and `print.css`. All tasks were already ticked before this session, and the fix doesn't add or complete any new task item. No changes to `tasks.md` are needed.
