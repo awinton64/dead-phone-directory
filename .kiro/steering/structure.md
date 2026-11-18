@@ -45,9 +45,8 @@ dead-phone-directory/
 ├── vite.config.ts
 ├── vitest.config.ts
 ├── package.json
-└── .github/
-    └── workflows/
-        └── deploy.yml         # Build and deploy to GitHub Pages
+└── scripts/
+    └── deploy.sh              # Build and publish dist/ to the gh-pages branch
 ```
 
 ## Key conventions

@@ -47,7 +47,7 @@ Node 18+ required.
 
 ## Deployment
 
-Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds and deploys `dist/` to GitHub Pages at `/dead-phone-directory/`.
+`npm run deploy` runs tests, lint and build, then publishes `dist/` to the `gh-pages` branch, which GitHub Pages serves at `/dead-phone-directory/`. (Kiro first wrote a GitHub Actions workflow for this; it was swapped for this script because the publishing token could not push workflow files.)
 
 ## License
 

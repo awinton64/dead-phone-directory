@@ -9,7 +9,7 @@
 - [x] Create `eslint.config.js` (not `.ts`) with typescript-eslint and `no-restricted-globals` rule banning `window`/`document`/`localStorage` inside `src/lib/`. Using `.js` avoids the need for an extra loader.
 - [x] Add `index.html` at the **repo root** (Vite's default root); include semantic landmarks: `<header>`, `<nav>`, four `<section>` elements, `<footer>`.
 - [x] Add `public/manifest.json` (name, short name, display: standalone).
-- [x] Add `.github/workflows/deploy.yml` (build on push to `main`, deploy `dist/` to GitHub Pages).
+- [x] Deploy to GitHub Pages: `npm run deploy` (scripts/deploy.sh) publishes `dist/` to the `gh-pages` branch. (Originally a `.github/workflows/deploy.yml`; replaced because the publishing token lacks workflow scope.)
 - **Refs:** R8 (AC 31–32)
 
 ## T2: `src/lib/phone.ts` + tests
