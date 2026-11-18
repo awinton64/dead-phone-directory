@@ -180,8 +180,8 @@ Navigation toggles `hidden` on the inactive sections. No URL changes.
 
 Two `@page` rules in `print.css`:
 
-- **`.print-wallet`** — `@page { size: 3.375in 2.125in; margin: 0.1in; }`. Front: flagged contacts. Back: household plan. Rendered as two adjacent `<div class="wallet-face">` blocks that become separate pages.
-- **`.print-fridge`** — `@page { size: letter; margin: 0.5in; }`. All contacts, emergency numbers, household plan, and a footer with the print date.
+- **`.print-wallet`**: `@page { size: 3.375in 2.125in; margin: 0.1in; }`. Front: flagged contacts. Back: household plan. Rendered as two adjacent `<div class="wallet-face">` blocks that become separate pages.
+- **`.print-fridge`**: `@page { size: letter; margin: 0.5in; }`. All contacts, emergency numbers, household plan, and a footer with the print date.
 
 Both classes are set to `display: none` in screen CSS and `display: block` in `@media print`.
 

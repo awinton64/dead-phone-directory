@@ -272,13 +272,13 @@ function renderPreviewScreenOnly(): void {
     frontPreview.appendChild(frontLabel);
 
     const row911 = el("div", { class: "wallet-row-preview" });
-    row911.textContent = "Emergency — 911";
+    row911.textContent = "Emergency: 911";
     frontPreview.appendChild(row911);
 
     const mustMemorize = state.contacts.filter((c) => c.mustMemorize).slice(0, 5);
     for (const c of mustMemorize) {
       const row = el("div", { class: "wallet-row-preview" });
-      row.textContent = `${c.name} — ${format(c.phone)}`;
+      row.textContent = `${c.name}: ${format(c.phone)}`;
       frontPreview.appendChild(row);
     }
     if (mustMemorize.length === 0) {
@@ -306,7 +306,7 @@ function renderPreviewScreenOnly(): void {
     for (const ec of EMERGENCY_CONTACTS) {
       if (ec.phone === "911") continue;
       const row = el("div", { class: "wallet-row-preview" });
-      row.textContent = `${ec.name} — ${format(ec.phone)}`;
+      row.textContent = `${ec.name}: ${format(ec.phone)}`;
       backPreview.appendChild(row);
     }
 

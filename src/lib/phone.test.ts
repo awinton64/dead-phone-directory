@@ -120,7 +120,7 @@ const serviceDigits = (): fc.Arbitrary<string> =>
 const validNormalisedArb = (): fc.Arbitrary<string> =>
   fc.oneof(nanpDigits(), serviceDigits());
 
-describe("P1 — round-trip idempotence: normalise(format(normalise(x))) === normalise(x)", () => {
+describe("P1: round-trip idempotence: normalise(format(normalise(x))) === normalise(x)", () => {
   it("holds for all valid normalised inputs", () => {
     fc.assert(
       fc.property(validNormalisedArb(), (n) => {
@@ -130,7 +130,7 @@ describe("P1 — round-trip idempotence: normalise(format(normalise(x))) === nor
   });
 });
 
-describe("P2 — format output never contains digit runs longer than 4", () => {
+describe("P2: format output never contains digit runs longer than 4", () => {
   it("holds for all valid normalised inputs", () => {
     fc.assert(
       fc.property(validNormalisedArb(), (n) => {
@@ -141,7 +141,7 @@ describe("P2 — format output never contains digit runs longer than 4", () => {
   });
 });
 
-describe("P3 — raw 10-digit string passes through normalise unchanged", () => {
+describe("P3: raw 10-digit string passes through normalise unchanged", () => {
   it("holds for all valid 10-digit NANP inputs", () => {
     fc.assert(
       fc.property(nanpDigits(), (d) => {
@@ -151,7 +151,7 @@ describe("P3 — raw 10-digit string passes through normalise unchanged", () => 
   });
 });
 
-describe("P4 — isServiceNumber matches /^[2-9]11$/ or equals '988'", () => {
+describe("P4: isServiceNumber matches /^[2-9]11$/ or equals '988'", () => {
   it("agrees with regex for all 3-char strings", () => {
     fc.assert(
       fc.property(fc.stringMatching(/^\d{3}$/), (s) => {

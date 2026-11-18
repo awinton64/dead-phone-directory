@@ -119,7 +119,7 @@ const isoDateArb = (): fc.Arbitrary<string> =>
     return `${yyyy}-${mm}-${dd}`;
   });
 
-describe("P5 — intervalDays(box) === 2^(box-1) for all boxes", () => {
+describe("P5: intervalDays(box) === 2^(box-1) for all boxes", () => {
   it("holds for all 5 boxes", () => {
     fc.assert(
       fc.property(boxArb(), (box) => {
@@ -129,7 +129,7 @@ describe("P5 — intervalDays(box) === 2^(box-1) for all boxes", () => {
   });
 });
 
-describe("P6 — after recordCorrect, newBox === Math.min(box + 1, 5)", () => {
+describe("P6: after recordCorrect, newBox === Math.min(box + 1, 5)", () => {
   it("holds for all boxes and dates", () => {
     fc.assert(
       fc.property(isoDateArb(), boxArb(), (today, box) => {
@@ -140,7 +140,7 @@ describe("P6 — after recordCorrect, newBox === Math.min(box + 1, 5)", () => {
   });
 });
 
-describe("P7 — after any sequence of correct/incorrect answers, box is always in {1,2,3,4,5}", () => {
+describe("P7: after any sequence of correct/incorrect answers, box is always in {1,2,3,4,5}", () => {
   type Action = "correct" | "incorrect";
   const actionArb = (): fc.Arbitrary<Action> =>
     fc.constantFrom<Action>("correct", "incorrect");
@@ -166,7 +166,7 @@ describe("P7 — after any sequence of correct/incorrect answers, box is always 
   });
 });
 
-describe("P8 — isDue(nextDue, today) is equivalent to nextDue <= today", () => {
+describe("P8: isDue(nextDue, today) is equivalent to nextDue <= today", () => {
   it("holds for all date pairs", () => {
     fc.assert(
       fc.property(isoDateArb(), isoDateArb(), (nextDue, today) => {

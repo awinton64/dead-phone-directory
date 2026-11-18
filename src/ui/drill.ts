@@ -61,7 +61,7 @@ export function renderStreak(state: AppState): void {
   currentItem.appendChild(currentVal);
   currentItem.appendChild(currentLabel);
 
-  // Candle icons — up to 7, one per day
+  // Candle icons: up to 7, one per day
   const candleCount = Math.min(current, 7);
   if (candleCount > 0) {
     const candleRow = el("div", { class: "streak-candles" });
@@ -419,7 +419,7 @@ export function initDrill(state: AppState, onSave: SaveCallback): void {
       const inputEl = cardContainer.querySelector<HTMLInputElement>(".drill-input");
       if (inputEl) inputEl.disabled = true;
 
-      // Show a Next button — user must press it to advance (no auto-timer)
+      // Show a Next button: user must press it to advance (no auto-timer)
       const nextBtn = el<HTMLButtonElement>("button", {
         type: "button",
         class: "btn btn-primary drill-next",

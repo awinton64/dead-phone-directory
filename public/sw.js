@@ -1,4 +1,4 @@
-// Dead Phone Directory — Service Worker
+// Dead Phone Directory: Service Worker
 // Plain JavaScript (not TypeScript). Vite copies public/ verbatim to dist/.
 // Registered from main.ts only in production builds (import.meta.env.PROD).
 
@@ -59,7 +59,7 @@ self.addEventListener("fetch", (event) => {
     caches.match(request).then((cached) => {
       if (cached) return cached;
 
-      // Not in cache — fetch from network and cache for next time.
+      // Not in cache: fetch from network and cache for next time.
       return fetch(request).then((response) => {
         // Only cache valid responses.
         if (!response || response.status !== 200 || response.type !== "basic") {

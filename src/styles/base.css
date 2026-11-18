@@ -1,5 +1,5 @@
 /* ============================================================
-   BASE — Reset, CSS custom properties, typography
+   BASE: Reset, CSS custom properties, typography
    ============================================================ */
 
 /* Light theme (default) */
@@ -60,7 +60,7 @@
   --tap-min: 44px;
 }
 
-/* Dark theme — same directory by candlelight */
+/* Dark theme: same directory by candlelight */
 /* Applied by OS preference when no manual override is set */
 @media (prefers-color-scheme: dark) {
   :root {

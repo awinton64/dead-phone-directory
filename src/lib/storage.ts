@@ -144,7 +144,7 @@ export function demoState(): AppState {
     contacts,
     plan: {
       meetingPlace: "Front yard oak tree (demo)",
-      fallback: "Dolores next door — 555-0105 (demo)",
+      fallback: "Dolores next door: 555-0105 (demo)",
     },
     drillLog: [],
     theme: "system",
@@ -246,7 +246,7 @@ function validateContact(raw: unknown, idx: number): Contact {
     throw new Error(`importState: contact[${idx}].relation must be 1–40 chars`);
   }
 
-  // Validate phone via normalise — it must already be normalised (digits only),
+  // Validate phone via normalise: it must already be normalised (digits only),
   // but we re-run normalise to confirm it is a valid number.
   const rawPhone = requireString(c["phone"], `contact[${idx}].phone`);
   let phone: string;
@@ -254,7 +254,7 @@ function validateContact(raw: unknown, idx: number): Contact {
     phone = normalise(rawPhone);
   } catch (e) {
     if (e instanceof PhoneError) {
-      throw new Error(`importState: contact[${idx}].phone invalid — ${e.message}`);
+      throw new Error(`importState: contact[${idx}].phone invalid: ${e.message}`);
     }
     throw e;
   }

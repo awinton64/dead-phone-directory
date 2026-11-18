@@ -6,7 +6,7 @@ A Kiroween 2026 Resurrection entry. It resurrects the paper home phone book so t
 
 ## Target users
 
-Families and households who want an offline-first safety net for phone outages, theft, or emergencies — especially useful for children and older adults who cannot rely on a contacts app.
+Families and households who want an offline-first safety net for phone outages, theft, or emergencies: especially useful for children and older adults who cannot rely on a contacts app.
 
 ## Core features
 
@@ -35,5 +35,9 @@ Families and households who want an offline-first safety net for phone outages, 
 - Accessible: WCAG 2.2 AA (labels, focus order, keyboard-only drill, aria-live feedback, reduced motion).
 - Phone-first responsive layout.
 - Dark mode: `prefers-color-scheme` media query plus a manual toggle.
-- Visual style: old paper phone directory — ruled lines, alphabet index tabs, serif headings — with a light spooky resurrection aesthetic that does not hurt legibility.
+- Visual style: old paper phone directory: ruled lines, alphabet index tabs, serif headings: with a light spooky resurrection aesthetic that does not hurt legibility.
 - Deployed to GitHub Pages at base path `/dead-phone-directory/`.
+
+## Writing style
+
+- Never use em dashes (U+2014) in UI text, code comments or docs. Use colons, commas, periods or parentheses.

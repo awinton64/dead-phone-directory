@@ -1,5 +1,5 @@
 /* ============================================================
-   PRINT — Wallet card and fridge sheet layouts
+   PRINT: Wallet card and fridge sheet layouts
    ============================================================ */
 
 /* ---- On-screen: hide print-only DOM, show preview UI ---- */
@@ -104,7 +104,7 @@
 }
 
 /* ============================================================
-   @media print — both layouts
+   @media print: both layouts
    ============================================================ */
 
 @media print {

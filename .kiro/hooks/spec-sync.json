@@ -7,7 +7,7 @@
       "description": "After the agent stops, tick completed task checkboxes in tasks.md.",
       "action": {
         "type": "agent",
-        "prompt": "Review the work completed in this session. Open .kiro/specs/dead-phone-directory/tasks.md and tick the checkbox (change `- [ ]` to `- [x]`) for every sub-item that is now fully implemented and verified. Only tick items that are genuinely done — do not tick items that are partially complete or not yet started. Save the file if you make any changes."
+        "prompt": "Review the work completed in this session. Open .kiro/specs/dead-phone-directory/tasks.md and tick the checkbox (change `- [ ]` to `- [x]`) for every sub-item that is now fully implemented and verified. Only tick items that are genuinely done: do not tick items that are partially complete or not yet started. Save the file if you make any changes."
       }
     }
   ]

@@ -177,7 +177,7 @@ describe("exportState / importState", () => {
 // importState validation
 // ---------------------------------------------------------------------------
 
-describe("importState — rejects invalid inputs", () => {
+describe("importState: rejects invalid inputs", () => {
   it("throws when version is missing", () => {
     expect(() =>
       importState({ contacts: [], plan: { meetingPlace: "", fallback: "" }, drillLog: [], theme: "system" })
@@ -339,7 +339,7 @@ const appStateArb = (): fc.Arbitrary<AppState> =>
     theme: themeArb(),
   });
 
-describe("P13 — loadState(saveState(s)) round-trips without data loss", () => {
+describe("P13: loadState(saveState(s)) round-trips without data loss", () => {
   it("holds for arbitrary valid AppState", () => {
     fc.assert(
       fc.property(appStateArb(), (state) => {
@@ -352,7 +352,7 @@ describe("P13 — loadState(saveState(s)) round-trips without data loss", () => 
   });
 });
 
-describe("P14 — importState(JSON.parse(exportState(s))) equals s", () => {
+describe("P14: importState(JSON.parse(exportState(s))) equals s", () => {
   it("holds for arbitrary valid AppState", () => {
     fc.assert(
       fc.property(appStateArb(), (state) => {
@@ -364,7 +364,7 @@ describe("P14 — importState(JSON.parse(exportState(s))) equals s", () => {
   });
 });
 
-describe("P15 — importState throws for missing version or invalid phone", () => {
+describe("P15: importState throws for missing version or invalid phone", () => {
   it("throws when version is missing", () => {
     fc.assert(
       fc.property(appStateArb(), (state) => {

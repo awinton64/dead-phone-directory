@@ -99,7 +99,7 @@ function boot(): void {
     save(next);
   });
 
-  // Demo, export, import — pass a getter so it always reads current state
+  // Demo, export, import: pass a getter so it always reads current state
   initDemo(
     () => state,
     (next) => {
@@ -114,7 +114,7 @@ function boot(): void {
 
   initPrint();
 
-  // Service worker — production only; skipped during `vite dev`
+  // Service worker: production only; skipped during `vite dev`
   if (import.meta.env.PROD && "serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("./sw.js")

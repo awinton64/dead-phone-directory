@@ -50,7 +50,7 @@ export function initTheme(
   // OS preference change listener
   const mq = window.matchMedia("(prefers-color-scheme: dark)");
   const onMqChange = (): void => {
-    // Only reacts when in system mode — CSS handles the actual colours,
+    // Only reacts when in system mode: CSS handles the actual colours,
     // but we may want to keep the button icon reflecting reality.
     if (current === "system") {
       if (btn) updateButton(btn, "system");

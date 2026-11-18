@@ -16,7 +16,7 @@ dead-phone-directory/
 │   ├── manifest.json          # Web app manifest (offline-capable PWA shell)
 │   └── sw.js                  # Service worker (plain JS, copied verbatim by Vite)
 ├── src/
-│   ├── lib/                   # Pure logic — no DOM, no browser globals
+│   ├── lib/                   # Pure logic: no DOM, no browser globals
 │   │   ├── phone.ts           # US number normalisation and formatting
 │   │   ├── phone.test.ts
 │   │   ├── scheduler.ts       # Leitner-box spaced-repetition
@@ -37,9 +37,9 @@ dead-phone-directory/
 │   │   ├── layout.css         # Phone-first responsive grid
 │   │   ├── directory.css      # Paper directory visual style (ruled lines, tabs)
 │   │   ├── drill.css          # Drill session styles, aria-live regions
-│   │   └── print.css          # @media print — wallet card and fridge sheet
+│   │   └── print.css          # @media print: wallet card and fridge sheet
 │   └── main.ts                # App entry point: boot, router, top-level event wiring
-├── index.html                 # Vite entry — at repo root (Vite default)
+├── index.html                 # Vite entry: at repo root (Vite default)
 ├── eslint.config.js           # Flat ESLint config (plain JS, no extra loader needed)
 ├── tsconfig.json
 ├── vite.config.ts

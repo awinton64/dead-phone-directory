@@ -1,6 +1,6 @@
 # Requirements: Dead Phone Directory
 
-## R1 — Contact list
+## R1: Contact list
 
 **US-1.** As a household member, I want to add a contact with name, relation, phone number, and a "must memorize" flag so that our key numbers are saved in one place.
 
@@ -14,14 +14,14 @@
 
 6. WHEN the directory is rendered THEN the system SHALL always display 911, 988 (Suicide and Crisis Lifeline), and Poison Control (1-800-222-1222) in a dedicated "Emergency" section that cannot be edited or deleted.
 
-## R2 — Household plan
+## R2: Household plan
 
 **US-3.** As a household member, I want to record a meeting place and a fallback contact so that everyone knows where to go and who to call if phones are dead.
 
 7. WHEN a user saves the household plan THEN the system SHALL persist the meeting-place text and fallback-contact text to localStorage.
 8. WHEN the page loads THEN the system SHALL restore and display the saved household plan.
 
-## R3 — Phone number handling
+## R3: Phone number handling
 
 **US-4.** As a user, I want phone numbers displayed in a consistent, readable format so that they are easy to read aloud or dial from memory.
 
@@ -30,7 +30,7 @@
 11. WHEN a user enters a phone number THEN the system SHALL accept and normalise inputs that include spaces, dashes, dots, or parentheses before saving.
 12. WHEN a phone number cannot be normalised to a valid US number or recognised service number THEN the system SHALL reject it with an accessible inline error message.
 
-## R4 — Print layouts
+## R4: Print layouts
 
 **US-5.** As a household member, I want to print a wallet card so that I can carry the most important numbers with me.
 
@@ -40,12 +40,12 @@
 
 14. WHEN a user activates "Print fridge sheet" THEN the system SHALL trigger the browser print dialog with a US Letter layout showing all contacts, emergency numbers, and the household plan, using print CSS only.
 
-## R5 — Dead Phone Drill
+## R5: Dead Phone Drill
 
 **US-7.** As a user, I want a daily drill that asks me to type phone numbers from memory so that I actually memorize them.
 
 15. WHEN a user starts a drill session THEN the system SHALL present each contact flagged "must memorize" whose next-due date is today or earlier, one at a time, up to a maximum of 5 cards per session (earliest `nextDue` first).
-16. WHEN no flagged contacts are due THEN the system SHALL display a "Nothing due today — come back tomorrow" message and not start a drill.
+16. WHEN no flagged contacts are due THEN the system SHALL display a "Nothing due today: come back tomorrow" message and not start a drill.
 17. WHEN a user types digits for a number THEN the system SHALL normalise both the input and the stored number via `normalise()` before comparing; a match on normalised digits is correct regardless of formatting. On a correct answer the system SHALL advance that contact to the next Leitner box and show a confirmation via an `aria-live` region.
 18. WHEN a user types incorrect digits THEN the system SHALL move that contact back to box 1, reveal the correct number, and show feedback via an `aria-live` region.
 19. WHEN a drill session ends (all due cards answered) THEN the system SHALL record today's ISO date in the drill log and update the streak display.
@@ -56,7 +56,7 @@
 21. WHEN a drill session is completed THEN the system SHALL increment the streak if yesterday's date is already in the drill log, or start a new streak of 1 if it is not.
 22. WHEN the streak is displayed THEN the system SHALL show the current streak count and the longest streak count.
 
-## R6 — Spaced-repetition scheduler
+## R6: Spaced-repetition scheduler
 
 **US-9.** As a system, I want a deterministic Leitner-box scheduler so that drill intervals are predictable and testable without mocking time.
 
@@ -65,7 +65,7 @@
 25. WHEN an incorrect answer is recorded THEN the system SHALL move the contact to box 1 and set its next-due date to today.
 26. WHEN computing due dates THEN the system SHALL use the local calendar date (YYYY-MM-DD) with no dependency on wall-clock time beyond `new Date().toLocaleDateString('en-CA')`.
 
-## R7 — Data management
+## R7: Data management
 
 **US-10.** As a user, I want to load demo data so that I can explore the app without entering real contacts.
 
@@ -77,14 +77,14 @@
 29. WHEN a user activates "Export" THEN the system SHALL download a JSON file containing all contacts, the household plan, and the drill log in the versioned storage schema.
 30. WHEN a user imports a JSON file THEN the system SHALL validate it against the storage schema, migrate it if the version is older, and replace the current data only if validation passes; otherwise it SHALL display an accessible error message.
 
-## R8 — Offline and static deployment
+## R8: Offline and static deployment
 
 **US-12.** As a user, I want the app to work without an internet connection after the first load.
 
 31. WHEN the app is loaded for the first time THEN the browser SHALL cache all assets via a service worker so that subsequent loads work offline.
 32. WHEN the app makes any runtime operation THEN the system SHALL make zero network requests (no analytics, no CDN fonts, no external APIs).
 
-## R9 — Accessibility and presentation
+## R9: Accessibility and presentation
 
 **US-13.** As a user with accessibility needs, I want the app to meet WCAG 2.2 AA so that I can use it with assistive technology.
 

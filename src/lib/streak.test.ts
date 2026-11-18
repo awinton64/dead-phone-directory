@@ -4,13 +4,13 @@ import { computeStreak } from "./streak.ts";
 
 // --- Unit tests ---
 
-describe("computeStreak — empty log", () => {
+describe("computeStreak: empty log", () => {
   it("returns {current:0, longest:0}", () => {
     expect(computeStreak([], "2024-06-15")).toEqual({ current: 0, longest: 0 });
   });
 });
 
-describe("computeStreak — single entry", () => {
+describe("computeStreak: single entry", () => {
   it("entry is today → current 1, longest 1", () => {
     expect(computeStreak(["2024-06-15"], "2024-06-15")).toEqual({
       current: 1,
@@ -33,7 +33,7 @@ describe("computeStreak — single entry", () => {
   });
 });
 
-describe("computeStreak — consecutive days", () => {
+describe("computeStreak: consecutive days", () => {
   it("three consecutive days ending today → current 3", () => {
     expect(
       computeStreak(["2024-06-13", "2024-06-14", "2024-06-15"], "2024-06-15")
@@ -65,7 +65,7 @@ describe("computeStreak — consecutive days", () => {
   });
 });
 
-describe("computeStreak — duplicates", () => {
+describe("computeStreak: duplicates", () => {
   it("duplicate entries for the same day do not inflate the streak", () => {
     expect(
       computeStreak(
@@ -82,7 +82,7 @@ describe("computeStreak — duplicates", () => {
   });
 });
 
-describe("computeStreak — longest vs current", () => {
+describe("computeStreak: longest vs current", () => {
   it("longest is always >= current", () => {
     const dates = ["2024-06-01", "2024-06-02", "2024-06-03", "2024-06-15"];
     const { current, longest } = computeStreak(dates, "2024-06-15");
@@ -101,7 +101,7 @@ describe("computeStreak — longest vs current", () => {
   });
 });
 
-describe("computeStreak — unsorted input", () => {
+describe("computeStreak: unsorted input", () => {
   it("handles unsorted dates correctly", () => {
     expect(
       computeStreak(["2024-06-15", "2024-06-13", "2024-06-14"], "2024-06-15")
@@ -122,7 +122,7 @@ const isoDateArb = (): fc.Arbitrary<string> =>
     return `${yyyy}-${mm}-${dd}`;
   });
 
-describe("P9 — computeStreak([], today).current === 0", () => {
+describe("P9: computeStreak([], today).current === 0", () => {
   it("holds for all today values", () => {
     fc.assert(
       fc.property(isoDateArb(), (today) => {
@@ -132,7 +132,7 @@ describe("P9 — computeStreak([], today).current === 0", () => {
   });
 });
 
-describe("P10 — list containing only today → current === 1", () => {
+describe("P10: list containing only today → current === 1", () => {
   it("holds for all today values", () => {
     fc.assert(
       fc.property(isoDateArb(), (today) => {
@@ -142,7 +142,7 @@ describe("P10 — list containing only today → current === 1", () => {
   });
 });
 
-describe("P11 — longest >= current always", () => {
+describe("P11: longest >= current always", () => {
   it("holds for arbitrary date lists and today", () => {
     fc.assert(
       fc.property(
@@ -157,7 +157,7 @@ describe("P11 — longest >= current always", () => {
   });
 });
 
-describe("P12 — duplicates do not increase streak beyond deduplicated list", () => {
+describe("P12: duplicates do not increase streak beyond deduplicated list", () => {
   it("holds for arbitrary date lists and today", () => {
     fc.assert(
       fc.property(

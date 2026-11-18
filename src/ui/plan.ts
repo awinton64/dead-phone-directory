@@ -58,7 +58,7 @@ export function initPlan(state: AppState, onSave: SaveCallback): void {
   fbInput.name = "fallback";
   fbInput.maxLength = 200;
   fbInput.autocomplete = "off";
-  fbInput.placeholder = "e.g. Dolores next door — 555-0105";
+  fbInput.placeholder = "e.g. Dolores next door: 555-0105";
   fbInput.value = state.plan.fallback;
 
   const fbError = document.createElement("span");

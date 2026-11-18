@@ -1,5 +1,5 @@
 /* ============================================================
-   DIRECTORY — Paper phone-directory visual style
+   DIRECTORY: Paper phone-directory visual style
    ============================================================ */
 
 /* ---- Section toolbar ---- */
@@ -20,7 +20,7 @@
   align-items: center;
 }
 
-/* Import label styled as a button — the real <input> is .sr-only inside it */
+/* Import label styled as a button: the real <input> is .sr-only inside it */
 .import-label {
   cursor: pointer;
   display: inline-flex;
@@ -85,7 +85,7 @@
   }
 }
 
-/* ---- Contact rows — ruled-line paper ---- */
+/* ---- Contact rows: ruled-line paper ---- */
 
 .contact-list {
   /* Ruled lines are provided by border-bottom on each .contact-row,

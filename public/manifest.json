@@ -1,7 +1,7 @@
 {
   "name": "Dead Phone Directory",
   "short_name": "PhoneDir",
-  "description": "Your household phone book for emergencies — works offline.",
+  "description": "Your household phone book for emergencies: works offline.",
   "display": "standalone",
   "start_url": "/dead-phone-directory/",
   "scope": "/dead-phone-directory/",
