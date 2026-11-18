@@ -2,7 +2,7 @@
 // Plain JavaScript (not TypeScript). Vite copies public/ verbatim to dist/.
 // Registered from main.ts only in production builds (import.meta.env.PROD).
 
-const CACHE_NAME = "dpd-v1";
+const CACHE_NAME = "dpd-v2";
 
 // Assets to pre-cache on install. The base path /dead-phone-directory/ is
 // baked into the Vite build; the SW is served from the same scope.
@@ -45,7 +45,10 @@ self.addEventListener("activate", (event) => {
 });
 
 // ---------------------------------------------------------------------------
-// Fetch: cache-first for same-origin GET requests, network fallback
+// Fetch: three strategies by request type
+//   - Navigation requests (HTML pages): network-first, cache fallback.
+//   - Vite content-hashed assets (assets/): cache-first, no revalidation needed.
+//   - Everything else same-origin GET: stale-while-revalidate.
 // ---------------------------------------------------------------------------
 self.addEventListener("fetch", (event) => {
   const { request } = event;
@@ -55,21 +58,50 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      if (cached) return cached;
-
-      // Not in cache: fetch from network and cache for next time.
-      return fetch(request).then((response) => {
-        // Only cache valid responses.
-        if (!response || response.status !== 200 || response.type !== "basic") {
+  // Navigation requests: network-first so a new deploy is picked up immediately.
+  // Fall back to the cached copy when offline.
+  if (request.mode === "navigate" || url.pathname.endsWith("index.html")) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          }
           return response;
-        }
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(request, responseToCache);
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Vite hashed assets: cache-first. The hash in the filename guarantees freshness.
+  if (url.pathname.includes("/assets/")) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          }
+          return response;
         });
-        return response;
+      })
+    );
+    return;
+  }
+
+  // Everything else (manifest.json, sw.js itself, etc.): stale-while-revalidate.
+  // Serve from cache immediately if available, then refresh the cache in the background.
+  event.respondWith(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.match(request).then((cached) => {
+        const networkFetch = fetch(request).then((response) => {
+          if (response.ok) cache.put(request, response.clone());
+          return response;
+        });
+        return cached || networkFetch;
       });
     })
   );

@@ -52,7 +52,7 @@ function buildWallet(): void {
   const front = el("div", { class: "wallet-face wallet-face-front" });
 
   const frontTitle = el("h2");
-  frontTitle.textContent = "Emergency Numbers";
+  frontTitle.textContent = "If my phone is dead, call";
   front.appendChild(frontTitle);
 
   // 911 always first

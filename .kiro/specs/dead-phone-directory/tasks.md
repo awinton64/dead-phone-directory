@@ -93,7 +93,7 @@
 - **Refs:** R4 (AC 13–14)
 
 ## T13: Service worker and offline support
-- [x] Add `public/sw.js` (plain JavaScript, no TypeScript, no Workbox): versioned cache name constant; on `install`, cache all same-origin assets needed for offline use; on `activate`, delete any caches whose name does not match the current version; on `fetch`, serve same-origin GET requests cache-first with network fallback.
+- [x] Add `public/sw.js` (plain JavaScript, no TypeScript, no Workbox): versioned cache name `dpd-v2`; on `install`, pre-cache shell assets; on `activate`, delete any caches whose name does not match the current version; on `fetch`, apply three strategies by request type: network-first for navigation requests and `index.html` (cache fallback when offline), cache-first for Vite content-hashed `assets/` files, and stale-while-revalidate for everything else same-origin.
 - [x] Register the service worker in `main.ts` using a relative URL (`./sw.js`) so it resolves correctly under the `/dead-phone-directory/` base path. No Vite plugin required: Vite copies `public/` files verbatim.
 - [ ] Verify zero network requests at runtime (no external fonts, no analytics).
 - **Refs:** R8 (AC 31–32)
