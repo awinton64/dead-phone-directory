@@ -41,6 +41,31 @@ export function initDemo(
   initImportInput(getState, onRerender);
 }
 
+// ---------------------------------------------------------------------------
+// Shared: load demo data, skipping confirm when the directory is empty
+// ---------------------------------------------------------------------------
+
+export function loadDemo(
+  getState: () => AppState,
+  onRerender: RerenderCallback,
+): void {
+  const hasContacts = getState().contacts.length > 0;
+  if (hasContacts) {
+    const confirmed = window.confirm(
+      "Replace all contacts and plan with fictional demo data? Your current data will be lost.",
+    );
+    if (!confirmed) return;
+  }
+
+  const next = demoState();
+  saveState(next);
+  onRerender(next);
+
+  showNoticeBanner(
+    "Demo data loaded. These are fictional contacts using 555-01xx numbers.",
+  );
+}
+
 function initDemoButton(
   getState: () => AppState,
   onRerender: RerenderCallback,
@@ -48,20 +73,7 @@ function initDemoButton(
   const btn = document.getElementById("btn-load-demo");
   if (!btn) return;
 
-  btn.addEventListener("click", () => {
-    const confirmed = window.confirm(
-      "Replace all contacts and plan with fictional demo data? Your current data will be lost.",
-    );
-    if (!confirmed) return;
-
-    const next = demoState();
-    saveState(next);
-    onRerender(next);
-
-    showNoticeBanner(
-      "Demo data loaded. These are fictional contacts using 555-01xx numbers.",
-    );
-  });
+  btn.addEventListener("click", () => loadDemo(getState, onRerender));
 }
 
 function initExportButton(getState: () => AppState): void {

@@ -78,7 +78,7 @@ function renderContacts(
 
   if (contacts.length === 0) {
     const empty = el("p", { class: "empty-state" });
-    setText(empty, "No contacts yet. Add your first contact below.");
+    setText(empty, "No contacts yet. Add your first contact above, or try the demo.");
     listContainer.appendChild(empty);
     if (alphaContainer) alphaContainer.innerHTML = "";
     return;
@@ -362,7 +362,7 @@ function renderForm(
         normalisedPhone = normalise(rawPhone);
       } catch (err) {
         const msg = err instanceof PhoneError
-          ? err.message
+          ? "Enter a 10-digit number, or 911 or 988."
           : "Invalid phone number.";
         setText(phoneError, msg);
         phoneInput.setAttribute("aria-describedby", "contact-phone-error");

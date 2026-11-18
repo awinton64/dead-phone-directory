@@ -78,7 +78,15 @@
 29. WHEN a user activates "Export" THEN the system SHALL download a JSON file containing all contacts, the household plan, and the drill log in the versioned storage schema.
 30. WHEN a user imports a JSON file THEN the system SHALL validate it against the storage schema, migrate it if the version is older, and replace the current data only if validation passes; otherwise it SHALL display an accessible error message.
 
-## R8: Offline and static deployment
+## R10: First-screen pitch
+
+**US-15.** As a judge or first-time visitor, I want to see what the app is and how to try it immediately, without entering any data, so that the value is clear before I commit.
+
+38. WHEN the directory has no contacts THEN the system SHALL display an intro panel above the toolbar with a heading, a one-line description, three feature points, a "Try the demo" button, and a "Start the drill" button.
+39. WHEN "Try the demo" is activated from the intro panel AND the directory is empty THEN the system SHALL load demo data without a confirm dialog and display the filled directory.
+40. WHEN "Start the drill" is activated from the intro panel AND the directory is empty THEN the system SHALL load demo data without a confirm dialog and switch to the Drill section.
+41. WHEN the directory contains at least one contact THEN the system SHALL hide the intro panel automatically, with no extra localStorage field required.
+
 
 **US-12.** As a user, I want the app to work without an internet connection after the first load.
 

@@ -99,6 +99,16 @@
 - [ ] Verify zero network requests at runtime (no external fonts, no analytics).
 - **Refs:** R8 (AC 31–32)
 
+## T15: First-screen intro panel
+- [x] Add `#intro-panel` above the toolbar in `index.html`: heading "Your phone just died. Who can you still call?", tagline, three feature points, "Try the demo" and "Start the drill" buttons.
+- [x] In `main.ts`, hide the panel when `state.contacts.length > 0`; show it when empty. No extra storage field.
+- [x] "Try the demo" from intro panel: calls `loadDemo` with no confirm dialog when empty.
+- [x] "Start the drill" from intro panel: calls `loadDemo` when empty, then switches to Drill section.
+- [x] Toolbar "Load demo data" button retains confirm dialog when contacts already exist.
+- [x] CSS in `directory.css`: panel fits 320px with no horizontal scroll, buttons wrap gracefully.
+- **Refs:** R10 (AC 38-41)
+
+
 ## T14: Accessibility audit and final wiring
 - [x] Confirm all interactive elements have visible labels and correct tab order across all sections.
 - [x] Confirm `aria-live` regions are present and correctly scoped in drill and import feedback.

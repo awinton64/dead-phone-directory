@@ -10,7 +10,7 @@ import { initTheme } from "./ui/theme.ts";
 import { initContacts } from "./ui/contacts.ts";
 import { initPlan } from "./ui/plan.ts";
 import { initDrill, renderStreak } from "./ui/drill.ts";
-import { initDemo } from "./ui/demo.ts";
+import { initDemo, loadDemo } from "./ui/demo.ts";
 import { initPrint } from "./ui/print.ts";
 
 // ---------------------------------------------------------------------------
@@ -80,6 +80,36 @@ function initNav(): void {
 }
 
 // ---------------------------------------------------------------------------
+// Intro panel
+// ---------------------------------------------------------------------------
+
+function updateIntroPanel(): void {
+  const panel = document.getElementById("intro-panel");
+  if (!panel) return;
+  // Hide the panel once the directory has at least one contact
+  panel.hidden = state.contacts.length > 0;
+}
+
+function initIntroPanel(onRerender: (next: AppState) => void): void {
+  updateIntroPanel();
+
+  const demoBtn = document.getElementById("btn-intro-demo");
+  const drillBtn = document.getElementById("btn-intro-drill");
+
+  demoBtn?.addEventListener("click", () => {
+    loadDemo(() => state, onRerender);
+  });
+
+  drillBtn?.addEventListener("click", () => {
+    // Load demo data first if the directory is empty, then go to drill
+    if (state.contacts.length === 0) {
+      loadDemo(() => state, onRerender);
+    }
+    showSection("drill");
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Boot
 // ---------------------------------------------------------------------------
 
@@ -92,25 +122,32 @@ function boot(): void {
     save(state);
   });
 
-  initContacts(state, save);
+  function rerenderAll(next: AppState): void {
+    save(next);
+    initContacts(next, save);
+    initPlan(next, save);
+    initDrill(next, (s) => save(s));
+    initPrint();
+    updateIntroPanel();
+  }
+
+  initContacts(state, (next) => {
+    save(next);
+    updateIntroPanel();
+  });
   initPlan(state, save);
 
   initDrill(state, (next) => {
     save(next);
   });
 
-  // Demo, export, import: pass a getter so it always reads current state
+  // Export, import, and toolbar demo button
   initDemo(
     () => state,
-    (next) => {
-      save(next);
-      // Re-initialise all views with the new state
-      initContacts(next, save);
-      initPlan(next, save);
-      initDrill(next, (s) => save(s));
-      initPrint();
-    },
+    rerenderAll,
   );
+
+  initIntroPanel(rerenderAll);
 
   initPrint();
 

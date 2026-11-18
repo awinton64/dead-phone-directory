@@ -2,6 +2,73 @@
    DIRECTORY: Paper phone-directory visual style
    ============================================================ */
 
+/* ---- Intro panel (shown only when directory is empty) ---- */
+
+.intro-panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.intro-heading {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  margin-bottom: var(--space-3);
+}
+
+.intro-tagline {
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-4);
+  line-height: var(--line-height);
+}
+
+.intro-points {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-5);
+}
+
+.intro-points li {
+  position: relative;
+  padding-left: var(--space-5);
+  margin-bottom: var(--space-2);
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  line-height: var(--line-height);
+}
+
+.intro-points li::before {
+  content: "☎";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+}
+
+.intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* Stack buttons on very narrow screens */
+@media (max-width: 320px) {
+  .intro-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .intro-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ---- Section toolbar ---- */
 
 .directory-toolbar {
