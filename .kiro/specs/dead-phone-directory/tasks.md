@@ -25,20 +25,20 @@
 - **Refs:** R6 (AC 23–26)
 
 ## T4 — `src/lib/streak.ts` + tests
-- [ ] Implement `computeStreak`.
-- [ ] Unit tests: empty log, single entry today, consecutive days, gap breaks streak, duplicates, longest vs current.
-- [ ] Property tests (fast-check): P9–P12.
+- [x] Implement `computeStreak`.
+- [x] Unit tests: empty log, single entry today, consecutive days, gap breaks streak, duplicates, longest vs current.
+- [x] Property tests (fast-check): P9–P12.
 - **Refs:** R5 (AC 21–22)
 
 ## T5 — `src/lib/storage.ts` + tests
-- [ ] Define `AppState`, `Contact`, `HouseholdPlan`, `DrillLogEntry` types.
-- [ ] Implement `emptyState`, `demoState` (555-01xx numbers, ≥2 `mustMemorize` contacts).
-- [ ] Implement `loadState` / `saveState` (key `dpd_v1`).
-- [ ] Implement `importState` with JSON schema validation and version migration stub (v1→v1 no-op for now).
-- [ ] Implement `exportState`.
-- [ ] Define `EMERGENCY_CONTACTS` constant.
-- [ ] Unit tests: round-trip, migration no-op, `importState` rejects bad phone, rejects missing version.
-- [ ] Property tests (fast-check): P13–P15.
+- [x] Define `AppState`, `Contact`, `HouseholdPlan`, `DrillLogEntry` types.
+- [x] Implement `emptyState`, `demoState` (555-01xx numbers, ≥2 `mustMemorize` contacts).
+- [x] Implement `loadState` / `saveState` (key `dpd_v1`).
+- [x] Implement `importState` with JSON schema validation and version migration stub (v1→v1 no-op for now).
+- [x] Implement `exportState`.
+- [x] Define `EMERGENCY_CONTACTS` constant.
+- [x] Unit tests: round-trip, migration no-op, `importState` rejects bad phone, rejects missing version.
+- [x] Property tests (fast-check): P13–P15.
 - **Refs:** R7 (AC 27–30), R2 (AC 6)
 
 ## T6 — Base styles and theming
