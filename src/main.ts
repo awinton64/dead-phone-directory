@@ -11,6 +11,7 @@ import { initContacts } from "./ui/contacts.ts";
 import { initPlan } from "./ui/plan.ts";
 import { initDrill, renderStreak } from "./ui/drill.ts";
 import { initDemo } from "./ui/demo.ts";
+import { initPrint } from "./ui/print.ts";
 
 // ---------------------------------------------------------------------------
 // State
@@ -107,8 +108,21 @@ function boot(): void {
       initContacts(next, save);
       initPlan(next, save);
       initDrill(next, (s) => save(s));
+      initPrint();
     },
   );
+
+  initPrint();
+
+  // Service worker — production only; skipped during `vite dev`
+  if (import.meta.env.PROD && "serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch((err: unknown) => {
+        // SW registration failure is non-fatal; app works without it
+        console.warn("SW registration failed:", err);
+      });
+  }
 }
 
 if (document.readyState === "loading") {

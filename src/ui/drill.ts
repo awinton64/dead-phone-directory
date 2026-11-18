@@ -397,6 +397,7 @@ export function initDrill(state: AppState, onSave: SaveCallback): void {
         sessionIncorrect++;
         feedbackEl.setAttribute("data-result", "incorrect");
         feedbackEl.setAttribute("data-visible", "true");
+        // Correct number stays visible until the user dismisses via Next
         feedbackEl.textContent = `✗ Missed. The number is ${format(contact.phone)}.`;
       }
 
@@ -412,15 +413,33 @@ export function initDrill(state: AppState, onSave: SaveCallback): void {
         }
       }
 
-      // Advance after a short pause so the user can read the feedback
-      setTimeout(() => {
+      // Disable the submit button so the user cannot re-submit the same card
+      const submitBtn = cardContainer.querySelector<HTMLButtonElement>(".drill-submit");
+      if (submitBtn) submitBtn.disabled = true;
+      const inputEl = cardContainer.querySelector<HTMLInputElement>(".drill-input");
+      if (inputEl) inputEl.disabled = true;
+
+      // Show a Next button — user must press it to advance (no auto-timer)
+      const nextBtn = el<HTMLButtonElement>("button", {
+        type: "button",
+        class: "btn btn-primary drill-next",
+      });
+      const isLast = cardIndex === cards.length - 1;
+      nextBtn.textContent = isLast ? "Finish" : "Next";
+      nextBtn.addEventListener("click", () => {
         cardIndex++;
         if (cardIndex < cards.length) {
           showCard();
         } else {
           finishSession();
         }
-      }, 1400);
+      });
+
+      // Append Next button after the feedback region
+      feedbackEl.insertAdjacentElement("afterend", nextBtn);
+
+      // Move focus to Next so keyboard users can proceed immediately
+      requestAnimationFrame(() => nextBtn.focus());
     }
 
     function finishSession(): void {

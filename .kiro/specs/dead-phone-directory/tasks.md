@@ -87,21 +87,21 @@
 - **Refs:** R7 (AC 27–30)
 
 ## T12 — Print layouts (`src/styles/print.css` + `src/ui/print.ts`)
-- [ ] `print.css`: `@media print` hides all screen UI; `.print-wallet` uses `@page { size: 3.375in 2.125in; }` with two `.wallet-face` divs (front: flagged contacts, back: household plan); `.print-fridge` uses `@page { size: letter; }` with full contact list, emergencies, plan, and print-date footer.
-- [ ] `src/ui/print.ts`: populate `.print-wallet` and `.print-fridge` from current storage state, then call `window.print()`.
-- [ ] "Print wallet card" and "Print fridge sheet" buttons in the Print section, each keyboard-accessible.
+- [x] `print.css`: `@media print` hides all screen UI; `.print-wallet` uses `@page { size: 3.375in 2.125in; }` with two `.wallet-face` divs (front: flagged contacts, back: household plan); `.print-fridge` uses `@page { size: letter; }` with full contact list, emergencies, plan, and print-date footer.
+- [x] `src/ui/print.ts`: populate `.print-wallet` and `.print-fridge` from current storage state, then call `window.print()`.
+- [x] "Print wallet card" and "Print fridge sheet" buttons in the Print section, each keyboard-accessible.
 - **Refs:** R4 (AC 13–14)
 
 ## T13 — Service worker and offline support
-- [ ] Add `public/sw.js` (plain JavaScript, no TypeScript, no Workbox): versioned cache name constant; on `install`, cache all same-origin assets needed for offline use; on `activate`, delete any caches whose name does not match the current version; on `fetch`, serve same-origin GET requests cache-first with network fallback.
-- [ ] Register the service worker in `main.ts` using a relative URL (`./sw.js`) so it resolves correctly under the `/dead-phone-directory/` base path. No Vite plugin required — Vite copies `public/` files verbatim.
+- [x] Add `public/sw.js` (plain JavaScript, no TypeScript, no Workbox): versioned cache name constant; on `install`, cache all same-origin assets needed for offline use; on `activate`, delete any caches whose name does not match the current version; on `fetch`, serve same-origin GET requests cache-first with network fallback.
+- [x] Register the service worker in `main.ts` using a relative URL (`./sw.js`) so it resolves correctly under the `/dead-phone-directory/` base path. No Vite plugin required — Vite copies `public/` files verbatim.
 - [ ] Verify zero network requests at runtime (no external fonts, no analytics).
 - **Refs:** R8 (AC 31–32)
 
 ## T14 — Accessibility audit and final wiring
-- [ ] Confirm all interactive elements have visible labels and correct tab order across all sections.
-- [ ] Confirm `aria-live` regions are present and correctly scoped in drill and import feedback.
-- [ ] Confirm `prefers-reduced-motion` suppresses all CSS transitions and animations.
-- [ ] Wire `main.ts`: section navigation, initial state load, theme init, service worker registration.
-- [ ] Run `npm run lint` and `npm run test` to green; fix any failures.
+- [x] Confirm all interactive elements have visible labels and correct tab order across all sections.
+- [x] Confirm `aria-live` regions are present and correctly scoped in drill and import feedback.
+- [x] Confirm `prefers-reduced-motion` suppresses all CSS transitions and animations.
+- [x] Wire `main.ts`: section navigation, initial state load, theme init, service worker registration.
+- [x] Run `npm run lint` and `npm run test` to green; fix any failures.
 - **Refs:** R9 (AC 33–35)

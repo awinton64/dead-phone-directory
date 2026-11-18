@@ -2,87 +2,214 @@
    PRINT — Wallet card and fridge sheet layouts
    ============================================================ */
 
-/* Hide print-only containers on screen */
+/* ---- On-screen: hide print-only DOM, show preview UI ---- */
+
 .print-wallet,
 .print-fridge {
   display: none;
 }
 
+/* Print section screen layout */
+.print-description {
+  margin-bottom: var(--space-md);
+  color: var(--color-ink);
+}
+
+.print-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.print-preview-section {
+  margin-bottom: var(--space-lg);
+}
+
+.print-preview-heading {
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  margin-bottom: var(--space-xs);
+  color: var(--color-ink);
+}
+
+.print-preview-note {
+  font-size: var(--font-size-sm);
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+/* Wallet card preview (screen) */
+.wallet-preview {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.wallet-face-preview {
+  border: 1px solid var(--color-rule);
+  border-radius: 4px;
+  padding: var(--space-sm);
+  min-width: 180px;
+  max-width: 260px;
+  background: var(--color-paper);
+  font-size: var(--font-size-sm);
+}
+
+.wallet-face-label {
+  font-weight: bold;
+  font-size: var(--font-size-xs, 0.7rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.wallet-row-preview {
+  font-size: var(--font-size-sm);
+  padding: 2px 0;
+  border-bottom: 1px solid var(--color-rule);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-ink);
+}
+
+.wallet-preview-empty {
+  font-size: var(--font-size-sm);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* Fridge sheet preview (screen) */
+.fridge-preview {
+  border: 1px solid var(--color-rule);
+  border-radius: 4px;
+  padding: var(--space-sm);
+  background: var(--color-paper);
+  max-width: 480px;
+}
+
+.fridge-preview-title {
+  font-weight: bold;
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-xs);
+  color: var(--color-ink);
+}
+
+.fridge-preview-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-muted);
+  margin-bottom: 2px;
+}
+
+/* ============================================================
+   @media print — both layouts
+   ============================================================ */
+
 @media print {
-  /* Hide everything except print layouts */
+  /* Force black ink on white regardless of theme */
+  * {
+    color: #000 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Hide all screen UI */
   body > header,
   body > nav,
   body > main,
-  body > footer {
+  body > footer,
+  .print-wallet,
+  .print-fridge {
     display: none !important;
   }
 
-  .print-wallet,
-  .print-fridge {
-    display: block;
+  /* Show only the selected layout via body class */
+
+  body.printing-wallet .print-wallet {
+    display: block !important;
   }
 
-  /* ---- Wallet card ---- */
+  body.printing-fridge .print-fridge {
+    display: block !important;
+  }
+
+  /* ---- Wallet card ----
+     Browsers widely ignore @page size for card-sized layouts when the
+     OS dialog is set to Letter/A4. We therefore render the card at true
+     physical size using fixed inch dimensions and rely on the user
+     scaling to 100% (no fit-to-page) in the print dialog.
+     Cut lines are drawn with an outline so the card can be trimmed.
+  */
 
   .print-wallet {
-    /* Two wallet faces become two pages */
+    width: 8.5in;
+    padding: 0.25in;
+    box-sizing: border-box;
   }
 
-  @page wallet {
-    size: 3.375in 2.125in;
-    margin: 0.1in;
+  .wallet-faces-row {
+    display: flex;
+    gap: 0.25in;
   }
 
   .wallet-face {
-    page: wallet;
     width: 3.375in;
     height: 2.125in;
     box-sizing: border-box;
     padding: 0.1in;
-    font-family: Georgia, serif;
+    font-family: Georgia, "Times New Roman", serif;
     font-size: 7pt;
     color: #000;
     background: #fff;
-    page-break-after: always;
-  }
-
-  .wallet-face:last-child {
-    page-break-after: avoid;
+    /* Cut lines */
+    outline: 0.5pt dashed #999;
+    overflow: hidden;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   .wallet-face h2 {
-    font-size: 8pt;
+    font-size: 7.5pt;
     font-weight: bold;
-    margin-bottom: 3pt;
+    margin: 0 0 2pt;
     border-bottom: 0.5pt solid #000;
-    padding-bottom: 2pt;
+    padding-bottom: 1.5pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .wallet-contact-row {
     display: flex;
     justify-content: space-between;
-    gap: 4pt;
+    gap: 3pt;
     padding: 1pt 0;
     border-bottom: 0.25pt solid #ccc;
     font-size: 6.5pt;
+    line-height: 1.2;
   }
 
   .wallet-contact-name {
     font-weight: bold;
     flex: 1;
+    min-width: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .wallet-contact-phone {
-    font-family: "Courier New", monospace;
+    font-family: "Courier New", Courier, monospace;
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .wallet-plan {
-    margin-top: 4pt;
-    font-size: 6pt;
+    margin-top: 3pt;
+    font-size: 5.5pt;
   }
 
   .wallet-plan dt {
@@ -92,21 +219,20 @@
 
   .wallet-plan dd {
     margin-left: 4pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* ---- Fridge sheet ---- */
 
-  @page fridge {
-    size: letter;
-    margin: 0.5in;
-  }
-
   .print-fridge {
-    page: fridge;
-    font-family: Georgia, serif;
+    font-family: Georgia, "Times New Roman", serif;
     font-size: 10pt;
     color: #000;
     background: #fff;
+    width: 7.5in; /* 8.5in - 0.5in margin each side */
+    margin: 0 auto;
   }
 
   .fridge-title {
@@ -137,18 +263,25 @@
   .fridge-contact-name {
     font-weight: bold;
     flex: 2;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .fridge-contact-relation {
     color: #555;
     flex: 1;
     font-size: 9pt;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .fridge-contact-phone {
-    font-family: "Courier New", monospace;
+    font-family: "Courier New", Courier, monospace;
     flex: 1.5;
     text-align: right;
+    white-space: nowrap;
   }
 
   .fridge-memorize-mark {
@@ -156,6 +289,7 @@
     color: #000;
     font-weight: bold;
     min-width: 10pt;
+    flex-shrink: 0;
   }
 
   .fridge-plan {
@@ -178,5 +312,16 @@
     text-align: center;
     border-top: 0.5pt solid #ccc;
     padding-top: 4pt;
+  }
+
+  /* Preview elements never print */
+  .wallet-preview,
+  .fridge-preview,
+  .print-preview-section,
+  .print-preview-heading,
+  .print-preview-note,
+  .print-btn-group,
+  .print-description {
+    display: none !important;
   }
 }

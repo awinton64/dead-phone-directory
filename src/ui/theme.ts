@@ -2,16 +2,12 @@ import type { AppState } from "../lib/storage.ts";
 
 type ThemePref = "light" | "dark" | "system";
 
-const ICONS: Record<ThemePref, string> = {
-  system: "⚙",
-  light: "☀",
-  dark: "🌙",
-};
-
-const LABELS: Record<ThemePref, string> = {
-  system: "Theme: system",
-  light: "Theme: light",
-  dark: "Theme: dark",
+// Display names map to the product's three named modes.
+// "system" follows the OS, "light" is paper-white, "dark" is called "Candlelight".
+const BUTTON_LABELS: Record<ThemePref, string> = {
+  system: "Theme: System",
+  light: "Theme: Light",
+  dark: "Theme: Candlelight",
 };
 
 const CYCLE: ThemePref[] = ["system", "light", "dark"];
@@ -26,10 +22,12 @@ function applyTheme(pref: ThemePref): void {
   }
 }
 
-/** Update the toggle button icon and aria-label. */
+/** Update the toggle button text to name the current mode. */
 function updateButton(btn: HTMLButtonElement, pref: ThemePref): void {
-  btn.textContent = ICONS[pref];
-  btn.setAttribute("aria-label", LABELS[pref]);
+  btn.textContent = BUTTON_LABELS[pref];
+  // aria-label mirrors the visible text; no aria-live needed since the
+  // button text itself changes in place and the user triggered the action.
+  btn.removeAttribute("aria-label");
 }
 
 /**
