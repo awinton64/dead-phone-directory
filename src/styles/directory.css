@@ -87,11 +87,20 @@
   align-items: center;
 }
 
-/* Import label styled as a button: the real <input> is .sr-only inside it */
+/* Import label styled as a button: the real <input> is .sr-only inside it.
+   min-height and padding must match .btn.btn-sm so it lines up with Export. */
 .import-label {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  min-height: 36px;
+  padding: var(--space-1) var(--space-3);
+}
+
+/* ---- Add-contact button area: gap above alpha tabs ---- */
+
+#contacts-add-area {
+  margin-bottom: var(--space-5);
 }
 
 /* ---- Alphabet index tabs ---- */
@@ -284,6 +293,17 @@
   border-bottom: 1px solid var(--color-rule);
 }
 
+/* At 360px and below, stack name above number so neither wraps mid-word */
+@media (max-width: 360px) {
+  .emergency-row {
+    grid-template-columns: 1fr;
+  }
+
+  .emergency-phone {
+    grid-column: 1;
+  }
+}
+
 .emergency-row:last-child {
   border-bottom: none;
 }
@@ -292,6 +312,9 @@
   font-family: var(--font-serif);
   font-weight: 700;
   color: var(--color-emergency);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .emergency-phone {
@@ -299,6 +322,7 @@
   font-size: var(--text-base);
   color: var(--color-emergency);
   font-weight: 700;
+  white-space: nowrap;
 }
 
 /* ---- Add / edit contact form ---- */

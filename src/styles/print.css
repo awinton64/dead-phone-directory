@@ -11,95 +11,145 @@
 
 /* Print section screen layout */
 .print-description {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-4);
   color: var(--color-ink);
 }
 
 .print-btn-group {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-lg);
+  /* Visible gap so stacked buttons do not touch */
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.print-scale-hint {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-6);
 }
 
 .print-preview-section {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-6);
 }
 
 .print-preview-heading {
-  font-size: var(--font-size-base);
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
   font-weight: bold;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-2);
   color: var(--color-ink);
 }
 
 .print-preview-note {
-  font-size: var(--font-size-sm);
-  color: var(--color-muted);
-  margin-bottom: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-3);
 }
 
-/* Wallet card preview (screen) */
+/* Wallet card preview (screen):
+   Two "faces" sit side-by-side when space allows, stack when narrow.
+   Card proportions mirror a real credit-card (3.375 x 2.125 in ~ 8:5).
+   Numbers must never be clipped: names may wrap or truncate instead. */
 .wallet-preview {
   display: flex;
-  gap: var(--space-md);
+  gap: var(--space-4);
   flex-wrap: wrap;
 }
 
 .wallet-face-preview {
-  border: 1px solid var(--color-rule);
-  border-radius: 4px;
-  padding: var(--space-sm);
-  min-width: 180px;
+  flex: 1 1 160px;
   max-width: 260px;
-  background: var(--color-paper);
-  font-size: var(--font-size-sm);
+  /* Approximate card aspect ratio on screen */
+  aspect-ratio: 3.375 / 2.125;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  background: var(--color-surface);
+  box-shadow: 0 2px 6px var(--color-shadow);
+  font-size: var(--text-sm);
+  overflow: hidden;
 }
 
 .wallet-face-label {
   font-weight: bold;
-  font-size: var(--font-size-xs, 0.7rem);
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-muted);
-  margin-bottom: var(--space-xs);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-1);
 }
 
+/* Each preview row: name may wrap/truncate; number stays on one line */
 .wallet-row-preview {
-  font-size: var(--font-size-sm);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
   padding: 2px 0;
   border-bottom: 1px solid var(--color-rule);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.wallet-row-name {
+  /* Name may wrap to a second line rather than truncating on screen */
+  min-width: 0;
+  flex: 1 1 auto;
+  word-break: break-word;
+}
+
+.wallet-row-phone {
+  /* Phone never wraps or truncates */
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+}
+
+/* Text rows (meeting place, fallback): label is bold, value wraps normally */
+.wallet-row-preview--text {
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.wallet-row-label {
+  font-weight: bold;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.wallet-row-value {
+  min-width: 0;
+  word-break: break-word;
 }
 
 .wallet-preview-empty {
-  font-size: var(--font-size-sm);
-  color: var(--color-muted);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
   font-style: italic;
 }
 
 /* Fridge sheet preview (screen) */
 .fridge-preview {
-  border: 1px solid var(--color-rule);
-  border-radius: 4px;
-  padding: var(--space-sm);
-  background: var(--color-paper);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  box-shadow: 0 2px 6px var(--color-shadow);
   max-width: 480px;
 }
 
 .fridge-preview-title {
+  font-family: var(--font-serif);
   font-weight: bold;
-  font-size: var(--font-size-base);
-  margin-bottom: var(--space-xs);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-2);
   color: var(--color-ink);
 }
 
 .fridge-preview-meta {
-  font-size: var(--font-size-sm);
-  color: var(--color-muted);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
   margin-bottom: 2px;
 }
 
@@ -320,6 +370,7 @@
   .print-preview-section,
   .print-preview-heading,
   .print-preview-note,
+  .print-scale-hint,
   .print-btn-group,
   .print-description {
     display: none !important;

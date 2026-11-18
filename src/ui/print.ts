@@ -266,20 +266,42 @@ function renderPreviewScreenOnly(): void {
   if (walletPreviewEl) {
     walletPreviewEl.innerHTML = "";
 
+    // Helper: build a preview row for a real phone number.
+    // Name truncates when space is tight; number never wraps or shrinks.
+    function walletPreviewRow(nameText: string, phoneText: string): HTMLElement {
+      const row = el("div", { class: "wallet-row-preview" });
+      const nameSpan = el("span", { class: "wallet-row-name" });
+      nameSpan.textContent = nameText;
+      const phoneSpan = el("span", { class: "wallet-row-phone" });
+      phoneSpan.textContent = phoneText;
+      row.appendChild(nameSpan);
+      row.appendChild(phoneSpan);
+      return row;
+    }
+
+    // Helper: build a preview row for a text value (meeting place, fallback).
+    // Label is bold; value wraps naturally instead of using the nowrap phone span.
+    function walletPreviewTextRow(labelText: string, valueText: string): HTMLElement {
+      const row = el("div", { class: "wallet-row-preview wallet-row-preview--text" });
+      const labelSpan = el("span", { class: "wallet-row-label" });
+      labelSpan.textContent = labelText;
+      const valueSpan = el("span", { class: "wallet-row-value" });
+      valueSpan.textContent = valueText;
+      row.appendChild(labelSpan);
+      row.appendChild(valueSpan);
+      return row;
+    }
+
     const frontPreview = el("div", { class: "wallet-face-preview" });
     const frontLabel = el("p", { class: "wallet-face-label" });
     frontLabel.textContent = "Front";
     frontPreview.appendChild(frontLabel);
 
-    const row911 = el("div", { class: "wallet-row-preview" });
-    row911.textContent = "Emergency: 911";
-    frontPreview.appendChild(row911);
+    frontPreview.appendChild(walletPreviewRow("Emergency", "911"));
 
     const mustMemorize = state.contacts.filter((c) => c.mustMemorize).slice(0, 5);
     for (const c of mustMemorize) {
-      const row = el("div", { class: "wallet-row-preview" });
-      row.textContent = `${c.name}: ${format(c.phone)}`;
-      frontPreview.appendChild(row);
+      frontPreview.appendChild(walletPreviewRow(c.name, format(c.phone)));
     }
     if (mustMemorize.length === 0) {
       const empty = el("p", { class: "wallet-preview-empty" });
@@ -294,20 +316,14 @@ function renderPreviewScreenOnly(): void {
     backPreview.appendChild(backLabel);
 
     if (state.plan.meetingPlace) {
-      const meetRow = el("div", { class: "wallet-row-preview" });
-      meetRow.textContent = `Meet: ${state.plan.meetingPlace}`;
-      backPreview.appendChild(meetRow);
+      backPreview.appendChild(walletPreviewTextRow("Meet:", state.plan.meetingPlace));
     }
     if (state.plan.fallback) {
-      const fallRow = el("div", { class: "wallet-row-preview" });
-      fallRow.textContent = `Fallback: ${state.plan.fallback}`;
-      backPreview.appendChild(fallRow);
+      backPreview.appendChild(walletPreviewTextRow("Fallback:", state.plan.fallback));
     }
     for (const ec of EMERGENCY_CONTACTS) {
       if (ec.phone === "911") continue;
-      const row = el("div", { class: "wallet-row-preview" });
-      row.textContent = `${ec.name}: ${format(ec.phone)}`;
-      backPreview.appendChild(row);
+      backPreview.appendChild(walletPreviewRow(ec.name, format(ec.phone)));
     }
 
     walletPreviewEl.appendChild(frontPreview);
@@ -376,6 +392,11 @@ export function initPrint(): void {
   btnGroup.appendChild(walletBtn);
   btnGroup.appendChild(fridgeBtn);
   area.appendChild(btnGroup);
+
+  const scaleHint = el("p", { class: "print-scale-hint" });
+  scaleHint.textContent =
+    "For a true-size card, print at 100% scale (Actual size), not Fit to page.";
+  area.appendChild(scaleHint);
 
   // Wallet card preview section
   const walletPreviewSection = el("div", { class: "print-preview-section" });
